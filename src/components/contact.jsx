@@ -21,10 +21,9 @@ export const Contact = (props) => {
     e.preventDefault();
     console.log(name, email, message);
     
-    {/* replace below with your own Service ID, Template ID and Public Key from your EmailJS account */ }
     
     emailjs
-      .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_PUBLIC_KEY")
+      .sendForm("service_erqzhw7", "template_1epmvcf", e.target, "yTnbQA8yId-vz5a_J")
       .then(
         (result) => {
           console.log(result.text);
