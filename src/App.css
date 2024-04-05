@@ -1,12 +1,7 @@
 @media screen and (max-width: 400px) {
-  #features {
-    padding: 20px;
-    width: 175%;
-  }
   #about,
   #services,
   #testimonials,
-  #team,
   #contact,
   #Elv,
   #footer {
@@ -17,5 +12,9 @@
     padding: 10px;
     width: 115%;
     margin-left: 110px;
+  }
+
+  #header {
+    margin-left: 42px;
   }
 }
