@@ -549,3 +549,13 @@ label {
     margin: 50px 0;
   }
 }
+
+
+
+/* ResponsiveNess  */
+@media(min-width: 992px) and (max-width: 1200px){
+  #menu.navbar-default .navbar-nav > li > a {
+    padding: 0px;
+    margin: 25px 20px;
+}
+}

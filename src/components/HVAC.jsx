@@ -3,7 +3,7 @@ import React from "react";
 
 export const HVAC = (props) => {
   return (
-    <div id="portfolio" className="text-center">
+    <div id="hvac-system" className="text-center">
       <div className="container">
         <div className="section-title">
           <h2>HVAC System</h2>
