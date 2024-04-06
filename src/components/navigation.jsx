@@ -99,7 +99,7 @@ export const Navigation = (props) => {
 
               <li>
                 <a href="#testimonials" className="page-scroll">
-                  Process Project
+                  Testinomial
                 </a>
               </li>
               {/* <li>
