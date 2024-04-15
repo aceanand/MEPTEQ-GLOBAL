@@ -265,7 +265,8 @@ header .intro-text {
 
 /* About Section */
 #about {
-  padding: 100px 0;
+  /* padding: 100px 0; */
+  padding: 50px 0px;
 }
 
 #about h2 {
@@ -314,7 +315,8 @@ header .intro-text {
 }
 /* Project Section */
 #portfolio {
-  padding: 100px 0;
+  /* padding: 100px 0; */
+  padding: 50px 0px;
 }
 .portfolio-item {
   margin: 1px -15px 0 -14px;
@@ -553,9 +555,55 @@ label {
 
 
 /* ResponsiveNess  */
+
+/* Navbar  */
 @media(min-width: 992px) and (max-width: 1200px){
   #menu.navbar-default .navbar-nav > li > a {
     padding: 0px;
     margin: 25px 20px;
 }
+}
+
+@media(min-width: 768px) and (max-width: 992px){
+  #menu.navbar-default .navbar-nav > li > a {
+    padding: 0px;
+    margin: 25px 15px;
+}
+}
+
+@media(min-width: 769px){
+  #li{
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+/* Hamburger */
+@media(max-width: 768px){
+  .navbar-toggle{
+    margin-top: 3%;
+  }
+  .intro h1{
+    font-size:32px;
+  }
+  #abt-us_img{
+    display: flex;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+} 
+
+
+@media (max-width: 1200px){
+  #about p {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+
+@media(min-width: 769px) and (max-width:992px){
+  .about-text{
+    margin-top: 5% !important;
+  }
 }

@@ -6,9 +6,10 @@ export const Navigation = (props) => {
       <nav id="menu" className="navbar navbar-default navbar-fixed-top">
         <div className="container">
           <div className="row topb">
-            <div className="col-md-6 ">
+            {/* <div className="col-md-6 "> */}
+            <div class="col-md-6 col-sm-8 col-xs-8">
               <div className="social">
-                <ul className="list-inline">
+                <ul className="list-inline" id="li">
                   <li className="list-inline-item ">
                     <a href="/">
                       <i className="fa fa-phone icone"></i>
@@ -28,7 +29,8 @@ export const Navigation = (props) => {
                 </ul>
               </div>
             </div>
-            <div className="col-md-6">
+            {/* <div className="col-md-6"> */}
+            <div classname="col-md-6 col-sm-4 col-xs-4">
               <div className="social text-right ">
                 <ul className="list-inline">
                   <li className="list-inline-item">
