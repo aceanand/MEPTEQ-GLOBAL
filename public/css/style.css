@@ -180,11 +180,11 @@ hr {
 .section-title p {
   font-size: 18px;
 }
-.btn-custom {
+/* .btn-custom {
   font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   color: #fff;
-  background-color: #5ca9fb;
+  background-color: #d6c2cc;
   background-image: linear-gradient(to right, #5ca9fb 0%, #6372ff 100%);
   padding: 14px 34px;
   letter-spacing: 1px;
@@ -220,9 +220,9 @@ a:focus,
 .btn.active.focus {
   outline: none;
   outline-offset: none;
-}
+} */
 /* Header Section */
-.intro {
+/* .intro {
   display: table;
   width: 100%;
   padding: 0;
@@ -261,7 +261,7 @@ header .intro-text {
   padding-top: 350px;
   padding-bottom: 200px;
   text-align: center;
-}
+} */
 
 /* About Section */
 #about {
