@@ -13,6 +13,7 @@
     "caniuse-lite": "^1.0.30001706",
     "emailjs-com": "^3.2.0",
     "lightbox.js-react": "^1.0.4",
+    "lucide-react": "^0.485.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-material-ui-carousel": "^3.4.2",
