@@ -11,8 +11,7 @@ import "./App.css";
 import { HVAC } from "./components/HVAC";
 import { Elv } from "./components/Elv";
 import { Plumber } from "./components/Plumber";
-import Contact from "./components/Contact";
-
+import Contact from "./components/contact";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
