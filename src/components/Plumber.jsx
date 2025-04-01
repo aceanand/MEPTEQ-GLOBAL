@@ -1,50 +1,163 @@
 import { Image } from "./image";
 import React from "react";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CircularProgress from '@mui/material/CircularProgress';
+import { styled } from '@mui/material/styles';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import PlumbingIcon from '@mui/icons-material/Plumbing';
+import BalconyIcon from '@mui/icons-material/Balcony';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import WaterIcon from '@mui/icons-material/Water';
+import SanitizerIcon from '@mui/icons-material/Sanitizer';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+
+// Custom styled components
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  height: '100%',
+  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-8px)',
+    boxShadow: theme.shadows[10],
+  },
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  transition: 'transform 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.03)',
+    boxShadow: theme.shadows[8],
+  },
+}));
+
+const TitleBox = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  marginBottom: theme.spacing(6),
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    bottom: '-16px',
+    width: '80px',
+    height: '4px',
+    backgroundColor: theme.palette.primary.main,
+  },
+}));
+
+// Larger icon size
+const LargeIcon = styled(Box)(({ theme }) => ({
+  '& .MuiSvgIcon-root': {
+    fontSize: '2rem',
+  },
+}));
 
 export const Plumber = (props) => {
-  return (
-    <div id="portfolio" className="text-center">
-      <div className="container">
-        <div className="section-title">
-          <h2>
-          PLUMBING & FIRE PROTECTION</h2>
-          
-         
-            <div >
-    <ul className="text-left" >
-        <li >• Water supply</li>
-        <li>• Drainage & Sewerage system</li>
-        <li>• Building Plumbing system</li>
-        <li>• Water filtration and purification system</li>
-        <li >• Waste water & Sewerage treatment plant.</li>
-        <li>• RO Plant</li>
-        <li>• Gas Distribution.</li>
-        
-    </ul>
-</div>
+  const services = [
+    { icon: <WaterDropIcon color="info" />, text: "Water supply" },
+    { icon: <PlumbingIcon color="primary" />, text: "Drainage & Sewerage system" },
+    { icon: <BalconyIcon color="primary" />, text: "Building Plumbing system" },
+    { icon: <FilterAltIcon color="primary" />, text: "Water filtration and purification system" },
+    { icon: <WaterIcon color="info" />, text: "Waste water & Sewerage treatment plant" },
+    { icon: <SanitizerIcon color="success" />, text: "RO Plant" },
+    { icon: <LocalFireDepartmentIcon color="error" />, text: "Gas Distribution" },
+  ];
 
-        </div>
-        <div className="row">
-          <div className="portfolio-items">
-            {props.data
-              ? props.data.map((d, i) => (
-                  <div
-                    key={`${d.title}-${i}`}
-                    className="col-sm-6 col-md-4 col-lg-4"
-                  >
-                    <Image
-                      title={d.title}
-                      largeImage={d.largeImage}
-                      smallImage={d.smallImage}
+  return (
+    <Box id="portfolio" sx={{ py: 8, bgcolor: 'background.default' }}>
+      <Container maxWidth="lg">
+        <TitleBox textAlign="center">
+          <Typography variant="h2" component="h2" fontWeight="bold" color="primary" sx={{ fontSize: '2.75rem' }}>
+            PLUMBING & FIRE PROTECTION
+          </Typography>
+        </TitleBox>
+
+        <Box mb={6}>
+          <Grid container spacing={3}>
+            {services.map((service, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <StyledPaper elevation={3}>
+                  <ListItem>
+                    <LargeIcon>
+                      <ListItemIcon>
+                        {service.icon}
+                      </ListItemIcon>
+                    </LargeIcon>
+                    <ListItemText
+                      primary={service.text}
+                      primaryTypographyProps={{ 
+                        fontWeight: 'medium',
+                        fontSize: '1.25rem'
+                      }}
                     />
-                  </div>
-                ))
-              : "Loading..."}
-          </div>
-        </div>
-      </div>
-    </div>
+                  </ListItem>
+                </StyledPaper>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        <Box>
+          <Grid container spacing={4}>
+            {props.data ? (
+              props.data.map((d, i) => (
+                <Grid item xs={12} sm={6} md={4} key={`${d.title}-${i}`}>
+                  <StyledCard elevation={4}>
+                    <CardMedia
+                      component="div"
+                      sx={{
+                        position: 'relative',
+                        paddingTop: '70%',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundImage: `url(${d.smallImage})`,
+                      }}
+                    />
+                    <CardContent>
+                      <Typography 
+                        variant="h5" 
+                        component="h3" 
+                        textAlign="center"
+                        sx={{ fontSize: '1.5rem' }}
+                      >
+                        {d.title}
+                      </Typography>
+                    </CardContent>
+                  </StyledCard>
+                </Grid>
+              ))
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  py: 6
+                }}
+              >
+                <CircularProgress size={40} />
+                <Typography variant="h6" sx={{ ml: 2, fontSize: '1.3rem' }}>
+                  Loading...
+                </Typography>
+              </Box>
+            )}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 };
-
-
