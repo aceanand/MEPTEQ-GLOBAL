@@ -318,7 +318,9 @@ export const About = (props) => {
               onMouseEnter={handleButtonHover}
               onMouseLeave={handleButtonLeave}
             >
-              Learn More
+              {/* Learn More */}
+             // <a href="https://www.example.com">Learn More</a>
+
               <span className="button-icon" style={styles.buttonIcon}>
                 →
               </span>
