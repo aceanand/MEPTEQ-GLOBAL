@@ -8,7 +8,7 @@ const destinations = [
     description:
       "HVAC, Plumbing, Electrical Systems, Fire Protection, Mechanical Services, Building Solutions, MEP Engineering.",
     accentColor: "#0077be",
-    gradient: "linear-gradient(135deg,rgb(214, 226, 112))",
+    gradient: "linear-gradient(135deg,rgb(252, 248, 39),#27ae60)",
     achievements: [
       "Multi-National Project Experience",
       // "Cross-Continental Capabilities",

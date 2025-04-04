@@ -509,7 +509,7 @@ const Contact = () => {
                 }}
               >
                 <Typography 
-                  variant="h5" 
+                  variant="h4" 
                   gutterBottom 
                   sx={{ 
                     fontWeight: 700,
@@ -521,27 +521,27 @@ const Contact = () => {
                 </Typography>
 
                 <ContactInfo
-                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 28 }} />}
+                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
                   title="Bangalore Office"
-                  text="#742, 15th Main, 6th Block, Koramangala, Bangalore - 560095, Karnataka, India"
+                  text="G M infinite Daffoldis, Hessragatta Road,Jalhali, Bangalore"
                 />
 
                 <ContactInfo
-                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 28 }} />}
+                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
                   title="Mumbai Office"
-                  text="201, Ceejay House, F Block, Shivsagar Estate, Dr. Annie Besant Road, Worli, Mumbai - 400018"
+                  text="A-101, Kiran Kunj Chs, Dombivli, Thane, Maharashtra"
                 />
 
                 <ContactInfo
-                  icon={<PhoneIcon sx={{ color: "white", fontSize: 28 }} />}
+                  icon={<PhoneIcon sx={{ color: "white", fontSize: 38 }} />}
                   title="Phone"
-                  text="+91 80 4321 6789"
+                  text="+91 7798097620"
                 />
 
                 <ContactInfo
-                  icon={<EmailIcon sx={{ color: "white", fontSize: 28 }} />}
+                  icon={<EmailIcon sx={{ color: "white", fontSize: 38 }} />}
                   title="Email"
-                  text="contact@mepteq.com"
+                  text="dhake9322@gmail.com"
                 />
               </Paper>
 
@@ -637,20 +637,28 @@ const ContactInfo = ({ icon, title, text }) => (
       {icon}
     </Box>
     <Box>
-      <Typography 
-        variant="subtitle1" 
-        fontWeight="bold"
-        sx={{ color: "white" }}
-      >
-        {title}
-      </Typography>
-      <Typography 
-        variant="body2" 
-        sx={{ color: "rgba(255, 255, 255, 0.8)", mt: 0.5 }}
-      >
-        {text}
-      </Typography>
-    </Box>
+  <Typography 
+    variant="subtitle1" 
+    fontWeight="bold"
+    sx={{ 
+      color: "white",
+      fontSize: "18px"  // Increased font size for title
+    }}
+  >
+    {title}
+  </Typography>
+  <Typography 
+    variant="body2" 
+    sx={{ 
+      color: "rgba(255, 255, 255, 0.8)", 
+      mt: 0.5,
+      fontSize: "12px"  // Increased font size for text
+    }}
+  >
+    {text}
+  </Typography>
+</Box>
+
   </Box>
 );
 

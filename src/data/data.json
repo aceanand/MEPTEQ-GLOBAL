@@ -22,12 +22,12 @@
   
   "Gallery": [
     {
-      "title": "Wallace Pharmaceutical office (MEP Design – At Andheri)",
+      "title": "Wallace Pharmaceutical",
       "largeImage": "img/portfolio/walll.png",
       "smallImage": "img/portfolio/walls.png"
     },
     {
-      "title": "Raddison Hotel (free to fly Club)",
+      "title": "Raddison Hotel",
       "largeImage": "img/portfolio/raditl.png",
       "smallImage": "img/portfolio/radits.png"
     },
@@ -37,27 +37,23 @@
       "smallImage": "img/portfolio/rads.png"
     },
     {
-      "title": "Sugee Developer/SSA/Studio SP- Marina Bay Worli ",
+      "title": "Sugee Developer",
       "largeImage": "img/portfolio/marinal.jpg",
       "smallImage": "img/portfolio/marinas.jpg"
     },
     {
-      "title": "Dr. Jafar Khan Villa – E-18 Emirates Hills Dubai",
+      "title": "Mr. Toshniwal's Villa, Alibaug",
       "largeImage": "img/portfolio/toshniwal.jpg",
       "smallImage": "img/portfolio/toshniwal.jpg"
     },
     {
-      "title": "E 108 Karani Villa – Emirates Hills-Dubai",
+      "title": "Mr. Kejriwal's Villa, Alibaug",
       "largeImage": "img/portfolio/kejriwal.jpg",
       "smallImage": "img/portfolio/kejriwal.jpg"
     },
+   
     {
-      "title": "Sugee Developer/SSA/Studio SP- Marina Bay Worli ",
-      "largeImage": "img/portfolio/marinal.jpg",
-      "smallImage": "img/portfolio/marinas.jpg"
-    },
-    {
-      "title": "Raddison Hotel (free to fly Club)",
+      "title": "LM Tower, Bhiwandi",
       "largeImage": "img/portfolio/lmtower2.jpeg",
       "smallImage": "img/portfolio/lmtower2.jpeg"
     },
@@ -67,22 +63,22 @@
       "smallImage": "img/portfolio/rads.png"
     },
     {
-      "title": "Rectification and MEP Audit Malik Architecture",
+      "title": "Rectification and MEP Audit",
       "largeImage": "img/portfolio/rectil.jpg",
       "smallImage": "img/portfolio/rectis.jpg"
     },
     {
-      "title": " Sanctuary Villa’s – Designed by Gauri Khan (At Siolim -Goa, Ongoing)",
+      "title": "Sanctuary Villa’s by Gauri Khan",
       "largeImage": "img/portfolio/sanctl.jpg",
       "smallImage": "img/portfolio/sancts.jpg"
     },
     {
-      "title": "UCO Bank",
+      "title": "Weatherford,Abu Dhabi",
       "largeImage": "img/portfolio/Weatherford.jpeg",
       "smallImage": "img/portfolio/Weatherford.jpeg"
     },
     {
-      "title": "Wallace Pharmaceutical office (MEP Design – At Andheri)",
+      "title": "Burj Khalifa tower",
       "largeImage": "img/portfolio/b2.jpeg",
       "smallImage": "img/portfolio/b2.jpeg"
     }
@@ -96,18 +92,10 @@
     {
       "largeImage": "img/portfolio/hvacl2.webp",
       "smallImage": "img/portfolio/hvacs2.webp"
-    }
-
-    ,
+    },
     {
-<<<<<<< HEAD
-      "title": "Click here to Preveiw",
-      "largeImage": "img/portfolio/hvacl3.jpeg",
-      "smallImage": "img/portfolio/hvacs3.jpeg"
-=======
-      "largeImage": "img/portfolio/hvacl3.jpg",
-      "smallImage": "img/portfolio/hvacs3.jpg"
->>>>>>> origin/master
+      "largeImage": "img/portfolio/hvacl2.webp",
+      "smallImage": "img/portfolio/hvacs2.webp"
     }
 
   ],
@@ -152,32 +140,52 @@
   
   "Testimonials": [
     {
-      "img": "img/testimonials/01.png",
+      "img": "img/testimonials/wallace.jpg",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Ashwini Anand"
     },
     {
-      "img": "img/testimonials/02.jpg",
+      "img": "img/testimonials/parle.webp",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Piyush Dhake"
     },
     {
-      "img": "img/testimonials/03.jpg",
+      "img": "img/testimonials/rhf.png",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Shubham Gupta"
     },
     {
-      "img": "img/testimonials/03.jpg",
+      "img": "img/testimonials/cartrade.png",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Shubham Gupta"
     },
     {
-      "img": "img/testimonials/02.jpg",
+      "img": "img/testimonials/radisson.png",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Piyush Dhake"
     },
     {
-      "img": "img/testimonials/01.png",
+      "img": "img/testimonials/suugee.png",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Ashwini Anand"
+    },
+    {
+      "img": "img/testimonials/bajaj.png",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Shubham Gupta"
+    },
+    {
+      "img": "img/testimonials/jsm.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Shubham Gupta"
+    },
+    {
+      "img": "img/testimonials/sanctuary.png",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Piyush Dhake"
+    },
+    {
+      "img": "img/testimonials/lm.jpg",
       "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
       "name": "Ashwini Anand"
     }
