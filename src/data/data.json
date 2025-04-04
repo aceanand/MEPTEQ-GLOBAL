@@ -22,14 +22,34 @@
   
   "Gallery": [
     {
+      "title": "Wallace Pharmaceutical office (MEP Design – At Andheri)",
+      "largeImage": "img/portfolio/walll.png",
+      "smallImage": "img/portfolio/walls.png"
+    },
+    {
+      "title": "Raddison Hotel (free to fly Club)",
+      "largeImage": "img/portfolio/raditl.png",
+      "smallImage": "img/portfolio/radits.png"
+    },
+    {
+      "title": "Raddison Hotel",
+      "largeImage": "img/portfolio/radl.png",
+      "smallImage": "img/portfolio/rads.png"
+    },
+    {
+      "title": "Sugee Developer/SSA/Studio SP- Marina Bay Worli ",
+      "largeImage": "img/portfolio/marinal.jpg",
+      "smallImage": "img/portfolio/marinas.jpg"
+    },
+    {
       "title": "Dr. Jafar Khan Villa – E-18 Emirates Hills Dubai",
-      "largeImage": "img/portfolio/drl.jpg",
-      "smallImage": "img/portfolio/drs.jpg"
+      "largeImage": "img/portfolio/toshniwal.jpg",
+      "smallImage": "img/portfolio/toshniwal.jpg"
     },
     {
       "title": "E 108 Karani Villa – Emirates Hills-Dubai",
-      "largeImage": "img/portfolio/e108l.jpg",
-      "smallImage": "img/portfolio/e108s.jpg"
+      "largeImage": "img/portfolio/kejriwal.jpg",
+      "smallImage": "img/portfolio/kejriwal.jpg"
     },
     {
       "title": "Sugee Developer/SSA/Studio SP- Marina Bay Worli ",
@@ -38,8 +58,8 @@
     },
     {
       "title": "Raddison Hotel (free to fly Club)",
-      "largeImage": "img/portfolio/raditl.png",
-      "smallImage": "img/portfolio/radits.png"
+      "largeImage": "img/portfolio/lmtower2.jpeg",
+      "smallImage": "img/portfolio/lmtower2.jpeg"
     },
     {
       "title": "Raddison Hotel",
@@ -58,13 +78,13 @@
     },
     {
       "title": "UCO Bank",
-      "largeImage": "img/portfolio/ucol.jpg",
-      "smallImage": "img/portfolio/ucos.jpg"
+      "largeImage": "img/portfolio/Weatherford.jpeg",
+      "smallImage": "img/portfolio/Weatherford.jpeg"
     },
     {
       "title": "Wallace Pharmaceutical office (MEP Design – At Andheri)",
-      "largeImage": "img/portfolio/walll.png",
-      "smallImage": "img/portfolio/walls.png"
+      "largeImage": "img/portfolio/b2.jpeg",
+      "smallImage": "img/portfolio/b2.jpeg"
     }
   ],
 
@@ -83,8 +103,8 @@
     ,
     {
       "title": "Click here to Preveiw",
-      "largeImage": "img/portfolio/hvacl3.jpg",
-      "smallImage": "img/portfolio/hvacs3.jpg"
+      "largeImage": "img/portfolio/hvacl3.jpeg",
+      "smallImage": "img/portfolio/hvacs3.jpeg"
     }
 
   ],
