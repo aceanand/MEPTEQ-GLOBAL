@@ -90,38 +90,40 @@
 
   "HVAC": [
     {
-      "title": "Click here to Preveiw",
       "largeImage": "img/portfolio/hvacl1.webp",
       "smallImage": "img/portfolio/hvacs1.webp"
     },
     {
-      "title": "Click here to Preveiw",
       "largeImage": "img/portfolio/hvacl2.webp",
       "smallImage": "img/portfolio/hvacs2.webp"
     }
 
     ,
     {
+<<<<<<< HEAD
       "title": "Click here to Preveiw",
       "largeImage": "img/portfolio/hvacl3.jpeg",
       "smallImage": "img/portfolio/hvacs3.jpeg"
+=======
+      "largeImage": "img/portfolio/hvacl3.jpg",
+      "smallImage": "img/portfolio/hvacs3.jpg"
+>>>>>>> origin/master
     }
 
   ],
 
   "Elv": [
     {
-      "title": "Click here to Preveiw",
       "largeImage": "img/portfolio/electl1.png",
       "smallImage": "img/portfolio/elects1.png"
     },
     {
-      "title": "Click here to Preveiw",
+     
       "largeImage": "img/portfolio/elvl2.jpg",
       "smallImage": "img/portfolio/elvs2.jpg"
     },
     {
-      "title": "Click here to Preveiw",
+     
       "largeImage": "img/portfolio/elvl3.jpg",
       "smallImage": "img/portfolio/elvl3.jpg"
     }
@@ -129,17 +131,16 @@
 
   "Plumber": [
     {
-      "title": "Click here to Preveiw",
+      
       "largeImage": "img/portfolio/pluml1.jpg",
       "smallImage": "img/portfolio/plums1.jpg"
     },
     {
-      "title": "Click here to Preveiw",
+     
       "largeImage": "img/portfolio/firel3.jpg",
       "smallImage": "img/portfolio/fires3.jpg"
     },
     {
-      "title": "Click here to Preveiw",
       "largeImage": "img/portfolio/pluml2.jpg",
       "smallImage": "img/portfolio/plums2.jpg"
     }

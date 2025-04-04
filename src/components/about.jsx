@@ -85,7 +85,7 @@ export const About = (props) => {
       height: isMobile ? "280px" : isTablet ? "380px" : "450px",
       margin: "0 auto",
       border: "5px solid #ffffff", // White border around circular image
-      background: "linear-gradient(135deg, #4a6cf7, #6a3ef7)", // Gradient behind image
+      background: "linear-gradient(135deg,rgb(218, 221, 230),rgb(230, 227, 241))", // Gradient behind image
       padding: "5px", // Space for the border
       display: "flex",
       alignItems: "center",
@@ -125,7 +125,7 @@ export const About = (props) => {
       transitionDelay: "0.7s",
     },
     paragraph: {
-      fontSize: isMobile ? "0.95rem" : "1rem",
+      fontSize: isMobile ? "1.2rem" : "2.2rem",
       lineHeight: 1.8,
       color: "#4a5568",
       marginBottom: isMobile ? "20px" : "30px",
@@ -152,7 +152,7 @@ export const About = (props) => {
       margin: 0,
     },
     listItem: {
-      fontSize: isMobile ? "0.9rem" : "0.95rem",
+      fontSize: isMobile ? "0.9rem" : "1.4rem",
       color: "#4a5568",
       padding: isMobile ? "8px 0" : "10px 0",
       display: "flex",
@@ -165,13 +165,13 @@ export const About = (props) => {
       justifyContent: "center",
       width: isMobile ? "22px" : "24px",
       height: isMobile ? "22px" : "24px",
-      background: "linear-gradient(135deg, #4a6cf7, #6a3ef7)", // Gradient background for icons
+      background: "linear-gradient(135deg,rgb(192, 215, 16),rgb(202, 73, 13))", // Gradient background for icons
       borderRadius: "50%",
       color: "#ffffff",
       fontSize: isMobile ? "10px" : "12px",
     },
     button: {
-      background: "linear-gradient(to right, #4a6cf7, #6a3ef7)", // Gradient button
+      background: "linear-gradient(to right,rgb(173, 18, 57),rgb(216, 23, 145))", // Gradient button
       color: "#ffffff",
       border: "none",
       borderRadius: "30px", // Rounded button
@@ -198,7 +198,7 @@ export const About = (props) => {
       left: "5px", // Account for padding
       right: "5px", // Account for padding
       bottom: "5px", // Account for padding
-      backgroundColor: "rgba(74, 108, 247, 0.2)",
+      backgroundColor: "rgba(140, 148, 178, 0.2)",
       opacity: 0,
       transition: "opacity 0.3s ease",
       borderRadius: "50%", // Match the circular image
@@ -318,7 +318,9 @@ export const About = (props) => {
               onMouseEnter={handleButtonHover}
               onMouseLeave={handleButtonLeave}
             >
-              Learn More
+              {/* Learn More */}
+             // <a href="https://www.example.com">Learn More</a>
+
               <span className="button-icon" style={styles.buttonIcon}>
                 →
               </span>

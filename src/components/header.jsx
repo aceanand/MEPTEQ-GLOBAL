@@ -8,10 +8,10 @@ const destinations = [
     description:
       "HVAC, Plumbing, Electrical Systems, Fire Protection, Mechanical Services, Building Solutions, MEP Engineering.",
     accentColor: "#0077be",
-    gradient: "linear-gradient(135deg, #0077be, #00a4e4)",
+    gradient: "linear-gradient(135deg,rgb(214, 226, 112))",
     achievements: [
       "Multi-National Project Experience",
-      "Cross-Continental Capabilities",
+      // "Cross-Continental Capabilities",
       "Strategic Global Partnerships",
     ],
   },
@@ -35,7 +35,7 @@ const destinations = [
     accentColor: "#e74c3c",
     gradient: "linear-gradient(135deg, #e74c3c, #c0392b)",
     achievements: [
-      "Sustainable Design Mastery",
+      "Eco-Friendly Building Solutions",
       "Intelligent Infrastructure Solutions",
       "Environmental Impact Innovation",
     ],
@@ -586,7 +586,7 @@ export const Header = () => {
                 }}
               >
                 <motion.button
-                  onClick={() => (window.location.href = "#services")}
+                  onClick={() => (window.location.href = "#hvac")}
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 20px rgba(0,0,0,0.25)",
