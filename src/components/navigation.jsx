@@ -286,9 +286,9 @@ export const Navigation = () => {
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Logo src={logo} alt="HVAC Pro Logo" sx={{ height: 38, mr: 1 }} />
-          <Typography variant="h6" sx={{ color: "white", fontWeight: 700 }}>
+          {/* <Typography variant="h6" sx={{ color: "white", fontWeight: 700 }}>
             HVAC Pro
-          </Typography>
+          </Typography> */}
         </Box>
         <IconButton
           onClick={handleDrawerToggle}
@@ -630,7 +630,7 @@ export const Navigation = () => {
                   alt="HVAC Pro Logo"
                   trigger={trigger ? 1 : 0}
                 />
-                <Typography
+                {/* <Typography
                   variant="h6"
                   sx={{
                     ml: 1,
@@ -642,7 +642,7 @@ export const Navigation = () => {
                   }}
                 >
                   HVAC Pro
-                </Typography>
+                </Typography> */}
               </Box>
             </Box>
 
