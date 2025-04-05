@@ -371,7 +371,7 @@ export const Header = () => {
             backgroundImage: `${overlayGradient}, url(${destination.url})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "brightness(0.7) contrast(1.2) saturate(1.15)",
+            filter: "brightness(1.2) contrast(0.9) saturate(1.15)", // Increased brightness, reduced contrast
             opacity: current === idx ? 1 : 0,
             transition: "opacity 1s ease-in-out",
             zIndex: current === idx ? 1 : 0,
