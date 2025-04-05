@@ -92,7 +92,7 @@ export const HVAC = ({ data, title = "HVAC Services" }) => {
   ];
 
   return (
-    <Box id="hvac-services" sx={{ py: 8, bgcolor: 'background.default' }}>
+    <Box id="HVAC" sx={{ py: 8, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <TitleBox textAlign="center">
           <Typography variant="h2" component="h2" fontWeight="bold" color="primary" sx={{ fontSize: '2.75rem' }}>

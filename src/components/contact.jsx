@@ -519,17 +519,15 @@ const Contact = () => {
                 >
                   Contact Information
                 </Typography>
-
-                <ContactInfo
-                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
-                  title="Bangalore Office"
-                  text="G M infinite Daffoldis, Hessragatta Road,Jalhali, Bangalore"
-                />
-
                 <ContactInfo
                   icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
                   title="Mumbai Office"
                   text="A-101, Kiran Kunj Chs, Dombivli, Thane, Maharashtra"
+                />
+                <ContactInfo
+                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
+                  title="Bangalore Office"
+                  text="G M infinite Daffoldis, Hessragatta Road,Jalhali, Bangalore"
                 />
 
                 <ContactInfo
@@ -727,9 +725,9 @@ const Footer = () => {
               variant="h6" 
               gutterBottom 
               sx={{ 
-                fontWeight: 600,
+                fontWeight: 900,
                 color: "#3b82f6",
-                mb: 3
+                mb: 4
               }}
             >
               Quick Links
@@ -756,20 +754,22 @@ const Footer = () => {
             >
               Follow Us
             </Typography>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-                <FacebookIcon />
-              </IconButton>
-              <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-                <TwitterIcon />
-              </IconButton>
-              <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-                <LinkedInIcon />
-              </IconButton>
-              <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-                <InstagramIcon />
-              </IconButton>
-            </Box>
+            <Box sx={{ display: "flex", gap: 2 }}>
+  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
+    <FacebookIcon sx={{ fontSize: 28 }} />
+  </IconButton>
+  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
+    <TwitterIcon sx={{ fontSize: 28 }} />
+  </IconButton>
+  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
+    <LinkedInIcon sx={{ fontSize: 28 }} />
+  </IconButton>
+  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
+    <InstagramIcon sx={{ fontSize: 28 }} />
+  </IconButton>
+</Box>
+
+            
           </Grid>
         </Grid>
 
@@ -796,6 +796,7 @@ const FooterLink = ({ text }) => (
       color: "#94a3b8",
       transition: "all 0.2s ease",
       display: "block",
+      fontSize: "14px",
       mb: 1.5,
       "&:hover": { 
         color: "white", 
