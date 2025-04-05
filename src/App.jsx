@@ -35,7 +35,7 @@ const App = () => {
       <Plumber data={landingPageData.Plumber} />
       <Elv data={landingPageData.Elv} />
       <Testimonials data={landingPageData.Testimonials} />
-      
+
       <Contact data={landingPageData.Contact} />
     </div>
   );
