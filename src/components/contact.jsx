@@ -14,7 +14,7 @@ import {
   Snackbar,
   useMediaQuery,
   useTheme,
-  Divider
+  Divider,
 } from "@mui/material";
 import {
   Send as SendIcon,
@@ -41,7 +41,7 @@ const Contact = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  
+
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState({
@@ -133,6 +133,7 @@ const Contact = () => {
 
   return (
     <Box
+      id="Contact"
       sx={{
         background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
         minHeight: "100vh",
@@ -202,80 +203,87 @@ const Contact = () => {
               fontWeight: 400,
             }}
           >
-            We'd love to hear from you! Whether you have a question about our services, 
-            pricing, or anything else, our team is ready to answer all your questions.
+            We'd love to hear from you! Whether you have a question about our
+            services, pricing, or anything else, our team is ready to answer all
+            your questions.
           </Typography>
-          <Divider 
-            sx={{ 
-              width: "100px", 
-              mx: "auto", 
-              borderColor: "#3b82f6", 
+          <Divider
+            sx={{
+              width: "100px",
+              mx: "auto",
+              borderColor: "#3b82f6",
               borderWidth: "2px",
-              mb: 6 
-            }} 
+              mb: 6,
+            }}
           />
         </Box>
 
-        <Grid container spacing={isMobile ? 6 : 8} justifyContent="space-between">
+        <Grid
+          container
+          spacing={isMobile ? 6 : 8}
+          justifyContent="space-between"
+        >
           {/* Contact Form */}
           <Grid item xs={12} md={7}>
-            <Paper 
-              elevation={10} 
-              sx={{ 
-                p: { xs: 3, sm: 4, md: 5 }, 
+            <Paper
+              elevation={10}
+              sx={{
+                p: { xs: 3, sm: 4, md: 5 },
                 borderRadius: 4,
                 background: "white",
-                transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                transition:
+                  "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                 "&:hover": {
                   transform: "translateY(-5px)",
                   boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
                 },
               }}
             >
-              <Typography 
-                variant="h4" 
+              <Typography
+                variant="h4"
                 component="h2"
-                sx={{ 
-                  mb: 4, 
+                sx={{
+                  mb: 4,
                   fontWeight: 700,
                   color: "#1e3a8a",
-                  fontSize: { xs: "1.75rem", sm: "2.5rem" }
+                  fontSize: { xs: "1.75rem", sm: "2.5rem" },
                 }}
               >
                 Send Us A Message
               </Typography>
 
               {submitStatus.isSuccess && (
-                <Alert 
-                  severity="success" 
-                  icon={<CheckCircleIcon fontSize="large" />} 
-                  sx={{ 
-                    mb: 3, 
+                <Alert
+                  severity="success"
+                  icon={<CheckCircleIcon fontSize="large" />}
+                  sx={{
+                    mb: 3,
                     borderRadius: 2,
                     backgroundColor: "rgba(84, 214, 44, 0.16)",
                     color: "#229A16",
                     "& .MuiAlert-icon": {
-                      color: "#229A16"
-                    }
+                      color: "#229A16",
+                    },
                   }}
                 >
                   <AlertTitle sx={{ fontWeight: 600 }}>Success</AlertTitle>
-                  Thank you! Your message has been sent successfully. We'll get back to you shortly.
+                  Thank you! Your message has been sent successfully. We'll get
+                  back to you shortly.
                 </Alert>
               )}
 
               {submitStatus.errorMessage && (
-                <Alert 
-                  severity="error" 
-                  icon={<ErrorIcon fontSize="large" />} 
-                  sx={{ 
+                <Alert
+                  severity="error"
+                  icon={<ErrorIcon fontSize="large" />}
+                  sx={{
                     mb: 3,
                     borderRadius: 2,
                     backgroundColor: "rgba(255, 86, 48, 0.16)",
                     color: "#B71D18",
                     "& .MuiAlert-icon": {
-                      color: "#B71D18"
-                    }
+                      color: "#B71D18",
+                    },
                   }}
                 >
                   <AlertTitle sx={{ fontWeight: 600 }}>Error</AlertTitle>
@@ -307,7 +315,7 @@ const Contact = () => {
                           },
                           "&.Mui-focused": {
                             boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
-                          }
+                          },
                         },
                       }}
                       InputLabelProps={{
@@ -341,7 +349,7 @@ const Contact = () => {
                           },
                           "&.Mui-focused": {
                             boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
-                          }
+                          },
                         },
                       }}
                       InputLabelProps={{
@@ -372,7 +380,7 @@ const Contact = () => {
                           },
                           "&.Mui-focused": {
                             boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
-                          }
+                          },
                         },
                       }}
                       InputLabelProps={{
@@ -403,7 +411,7 @@ const Contact = () => {
                           },
                           "&.Mui-focused": {
                             boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
-                          }
+                          },
                         },
                       }}
                       InputLabelProps={{
@@ -439,7 +447,7 @@ const Contact = () => {
                           },
                           "&.Mui-focused": {
                             boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
-                          }
+                          },
                         },
                       }}
                       InputLabelProps={{
@@ -491,41 +499,49 @@ const Contact = () => {
 
           {/* Contact Info */}
           <Grid item xs={12} md={4}>
-            <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+            <Box
+              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+            >
               <Paper
                 elevation={10}
                 sx={{
                   p: { xs: 3, sm: 4 },
                   borderRadius: 4,
-                  background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                  background:
+                    "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
                   color: "white",
                   mb: 4,
                   flex: 1,
-                  transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                  transition:
+                    "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                   "&:hover": {
                     transform: "translateY(-5px)",
                     boxShadow: "0 15px 30px rgba(0,0,0,0.15)",
                   },
                 }}
               >
-                <Typography 
-                  variant="h4" 
-                  gutterBottom 
-                  sx={{ 
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  sx={{
                     fontWeight: 700,
                     color: "white",
-                    mb: 3
+                    mb: 3,
                   }}
                 >
                   Contact Information
                 </Typography>
                 <ContactInfo
-                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
+                  icon={
+                    <LocationOnIcon sx={{ color: "white", fontSize: 38 }} />
+                  }
                   title="Mumbai Office"
                   text="A-101, Kiran Kunj Chs, Dombivli, Thane, Maharashtra"
                 />
                 <ContactInfo
-                  icon={<LocationOnIcon sx={{ color: "white", fontSize: 38 }} />}
+                  icon={
+                    <LocationOnIcon sx={{ color: "white", fontSize: 38 }} />
+                  }
                   title="Bangalore Office"
                   text="G M infinite Daffoldis, Hessragatta Road,Jalhali, Bangalore"
                 />
@@ -548,28 +564,36 @@ const Contact = () => {
                 sx={{
                   p: { xs: 3, sm: 4 },
                   borderRadius: 4,
-                  background: "linear-gradient(135deg, #f97316 0%, #fb923c 100%)",
+                  background:
+                    "linear-gradient(135deg, #f97316 0%, #fb923c 100%)",
                   color: "white",
-                  transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                  transition:
+                    "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                   "&:hover": {
                     transform: "translateY(-5px)",
                     boxShadow: "0 15px 30px rgba(0,0,0,0.15)",
                   },
                 }}
               >
-                <Typography 
-                  variant="h5" 
-                  gutterBottom 
-                  sx={{ 
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  sx={{
                     fontWeight: 700,
                     color: "white",
-                    mb: 3
+                    mb: 3,
                   }}
                 >
                   Connect With Us
                 </Typography>
-                
-                <Box sx={{ display: "flex", justifyContent: "space-between", maxWidth: "220px" }}>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    maxWidth: "220px",
+                  }}
+                >
                   <SocialButton icon={<FacebookIcon />} />
                   <SocialButton icon={<TwitterIcon />} />
                   <SocialButton icon={<LinkedInIcon />} />
@@ -586,21 +610,21 @@ const Contact = () => {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert 
-          onClose={handleSnackbarClose} 
-          severity="success" 
-          sx={{ 
-            width: '100%',
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{
+            width: "100%",
             borderRadius: 2,
-            boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
+            boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
           }}
         >
           Thank you for your message! We'll get back to you soon.
         </Alert>
       </Snackbar>
-      
+
       {/* Footer */}
       <Footer />
     </Box>
@@ -609,15 +633,15 @@ const Contact = () => {
 
 // Contact Info Component
 const ContactInfo = ({ icon, title, text }) => (
-  <Box 
-    display="flex" 
-    alignItems="flex-start" 
+  <Box
+    display="flex"
+    alignItems="flex-start"
     mb={3}
     sx={{
       transition: "transform 0.2s ease",
       "&:hover": {
-        transform: "translateX(5px)"
-      }
+        transform: "translateX(5px)",
+      },
     }}
   >
     <Box
@@ -629,34 +653,33 @@ const ContactInfo = ({ icon, title, text }) => (
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
       }}
     >
       {icon}
     </Box>
     <Box>
-  <Typography 
-    variant="subtitle1" 
-    fontWeight="bold"
-    sx={{ 
-      color: "white",
-      fontSize: "18px"  // Increased font size for title
-    }}
-  >
-    {title}
-  </Typography>
-  <Typography 
-    variant="body2" 
-    sx={{ 
-      color: "rgba(255, 255, 255, 0.8)", 
-      mt: 0.5,
-      fontSize: "12px"  // Increased font size for text
-    }}
-  >
-    {text}
-  </Typography>
-</Box>
-
+      <Typography
+        variant="subtitle1"
+        fontWeight="bold"
+        sx={{
+          color: "white",
+          fontSize: "18px", // Increased font size for title
+        }}
+      >
+        {title}
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          color: "rgba(255, 255, 255, 0.8)",
+          mt: 0.5,
+          fontSize: "12px", // Increased font size for text
+        }}
+      >
+        {text}
+      </Typography>
+    </Box>
   </Box>
 );
 
@@ -669,7 +692,7 @@ const SocialButton = ({ icon }) => (
       "&:hover": {
         backgroundColor: "rgba(255, 255, 255, 0.3)",
         transform: "translateY(-3px)",
-        boxShadow: "0 5px 10px rgba(0,0,0,0.1)"
+        boxShadow: "0 5px 10px rgba(0,0,0,0.1)",
       },
       transition: "all 0.3s ease",
     }}
@@ -681,7 +704,7 @@ const SocialButton = ({ icon }) => (
 // Footer Component
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <Box
       sx={{
@@ -695,81 +718,95 @@ const Footer = () => {
         <Grid container spacing={4} justifyContent="space-between">
           {/* Company Info */}
           <Grid item xs={12} md={4}>
-            <Typography 
-              variant="h5" 
-              gutterBottom 
-              sx={{ 
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{
                 fontWeight: 700,
                 color: "white",
                 mb: 3,
-                fontSize: { xs: "1.5rem", sm: "1.75rem" }
+                fontSize: { xs: "1.5rem", sm: "1.75rem" },
               }}
             >
               Mepteq
             </Typography>
-            <Typography 
-              variant="body2" 
-              sx={{ 
+            <Typography
+              variant="body2"
+              sx={{
                 color: "#94a3b8",
                 mb: 3,
                 maxWidth: "300px",
-                fontSize: { xs: "0.875rem", sm: "1.5rem" }
+                fontSize: { xs: "0.875rem", sm: "1.5rem" },
               }}
-            >MepTeq specializes in providing high-quality solutions in HVAC (Heating, Ventilation, and Air Conditioning), plumbing, electrical systems, and fire protection services. Our expertise ensures efficient design, installation, and maintenance for residential, commercial, and industrial projects, ensuring compliance with safety standards and optimal system performance.
+            >
+              MepTeq specializes in providing high-quality solutions in HVAC
+              (Heating, Ventilation, and Air Conditioning), plumbing, electrical
+              systems, and fire protection services. Our expertise ensures
+              efficient design, installation, and maintenance for residential,
+              commercial, and industrial projects, ensuring compliance with
+              safety standards and optimal system performance.
             </Typography>
           </Grid>
 
           {/* Quick Links */}
           <Grid item xs={12} sm={6} md={3}>
-            <Typography 
-              variant="h6" 
-              gutterBottom 
-              sx={{ 
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
                 fontWeight: 900,
                 color: "#3b82f6",
-                mb: 4
+                mb: 4,
               }}
             >
               Quick Links
             </Typography>
-            <FooterLink text="About Us"/>
+            <FooterLink text="About Us" />
             <FooterLink text="Services" />
             <FooterLink text="Portfolio" />
             <FooterLink text="Testimonials" />
             <FooterLink text="Contact" />
           </Grid>
 
-        
-
           {/* Social Media */}
           <Grid item xs={12} md={2}>
-            <Typography 
-              variant="h6" 
-              gutterBottom 
-              sx={{ 
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
                 fontWeight: 600,
                 color: "#3b82f6",
-                mb: 3
+                mb: 3,
               }}
             >
               Follow Us
             </Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
-  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-    <FacebookIcon sx={{ fontSize: 28 }} />
-  </IconButton>
-  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-    <TwitterIcon sx={{ fontSize: 28 }} />
-  </IconButton>
-  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-    <LinkedInIcon sx={{ fontSize: 28 }} />
-  </IconButton>
-  <IconButton size="small" sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}>
-    <InstagramIcon sx={{ fontSize: 28 }} />
-  </IconButton>
-</Box>
-
-            
+              <IconButton
+                size="small"
+                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
+              >
+                <FacebookIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+              <IconButton
+                size="small"
+                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
+              >
+                <TwitterIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+              <IconButton
+                size="small"
+                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
+              >
+                <LinkedInIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+              <IconButton
+                size="small"
+                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
+              >
+                <InstagramIcon sx={{ fontSize: 28 }} />
+              </IconButton>
+            </Box>
           </Grid>
         </Grid>
 
@@ -798,9 +835,9 @@ const FooterLink = ({ text }) => (
       display: "block",
       fontSize: "14px",
       mb: 1.5,
-      "&:hover": { 
-        color: "white", 
-        transform: "translateX(5px)" 
+      "&:hover": {
+        color: "white",
+        transform: "translateX(5px)",
       },
     }}
   >
