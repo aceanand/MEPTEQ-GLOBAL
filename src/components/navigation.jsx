@@ -30,11 +30,11 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+
 import { keyframes } from "@emotion/react";
 
 // Logo import
-import logo from "../img/logo.ico";
+import logo from "../img/log1.jpg";
 
 // More subtle gradient animation
 const gradient = keyframes`
@@ -46,6 +46,19 @@ const gradient = keyframes`
   }
   100% {
     background-position: 0% 50%;
+  }
+`;
+
+// Pulse animation for active items
+const pulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(25, 118, 210, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0);
   }
 `;
 
@@ -74,39 +87,48 @@ const Logo = styled("img")(({ theme, trigger }) => ({
   filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08))",
 }));
 
+// Enhanced NavButton for more attractive look
 const NavButton = styled(Button)(({ theme, active }) => ({
   margin: theme.spacing(0, 0.8),
   color: active ? theme.palette.primary.main : theme.palette.text.primary,
   fontWeight: 600,
   borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(0.8, 1.8),
+  padding: theme.spacing(1, 2.2),
   textTransform: "none",
-  fontSize: "0.95rem",
+  fontSize: "1.1rem", 
   letterSpacing: "0.3px",
   position: "relative",
   backgroundColor: active
     ? alpha(theme.palette.primary.main, 0.08)
     : "transparent",
+  transition: "all 0.3s ease",
   "&:hover": {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
+    transform: "translateY(-2px)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.05)",
   },
   "&::after": {
     content: '""',
     position: "absolute",
-    bottom: 6,
-    left: active ? 12 : "50%",
-    width: active ? "calc(100% - 24px)" : 0,
-    height: 2,
+    bottom: 4,
+    left: active ? 14 : "50%",
+    width: active ? "calc(100% - 28px)" : 0,
+    height: 3,
     backgroundColor: theme.palette.primary.main,
     transform: active ? "none" : "translateX(-50%)",
     transition: "all 0.3s ease",
-    borderRadius: 1,
+    borderRadius: 4,
+    opacity: active ? 0.9 : 0,
   },
   "&:hover::after": {
-    width: "calc(100% - 24px)",
-    left: 12,
+    width: "calc(100% - 28px)",
+    left: 14,
     transform: "none",
+    opacity: 0.7,
   },
+  ...(active && {
+    animation: `${pulse} 2s infinite`,
+  }),
 }));
 
 const TopBarButton = styled(Button)(({ theme }) => ({
@@ -126,9 +148,10 @@ const SocialIcon = styled(IconButton)(({ theme }) => ({
   padding: theme.spacing(0.6),
   margin: theme.spacing(0, 0.3),
   backgroundColor: alpha("#ffffff", 0.1),
-  transition: "background-color 0.2s ease",
+  transition: "all 0.2s ease",
   "&:hover": {
     backgroundColor: alpha("#ffffff", 0.2),
+    transform: "translateY(-2px)",
   },
 }));
 
@@ -148,15 +171,18 @@ const MobileTopBar = styled(Box)(({ theme }) => ({
   color: "white",
 }));
 
+// Enhanced mobile nav item for more attractive look
 const MobileNavItem = styled(ListItem)(({ theme, active }) => ({
   borderLeft: active
     ? `4px solid ${theme.palette.primary.main}`
     : "4px solid transparent",
-  transition: "all 0.2s ease",
-  padding: theme.spacing(1.2, 2),
+  transition: "all 0.25s ease",
+  padding: theme.spacing(1.6, 2),
+  backgroundColor: active ? alpha(theme.palette.primary.main, 0.06) : "transparent",
   "&:hover": {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     borderLeft: `4px solid ${theme.palette.primary.main}`,
+    transform: "translateX(4px)",
   },
 }));
 
@@ -165,28 +191,31 @@ const MobileContactButton = styled(Button)(({ theme }) => ({
   backgroundColor: alpha("#ffffff", 0.15),
   color: "white",
   padding: theme.spacing(0.5, 1.6),
-  fontSize: "0.8rem",
+  fontSize: "0.9rem",
   fontWeight: 500,
   textTransform: "none",
-  transition: "background-color 0.2s ease",
+  transition: "all 0.2s ease",
   "&:hover": {
     backgroundColor: alpha("#ffffff", 0.25),
+    transform: "translateY(-2px)",
   },
 }));
 
 const CallNowButton = styled(Button)(({ theme }) => ({
   color: "white",
   fontWeight: 600,
-  padding: theme.spacing(0.8, 2.4),
-  borderRadius: 4,
+  padding: theme.spacing(0.9, 2.5),
+  borderRadius: 6,
   marginLeft: theme.spacing(2),
-  background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
-  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.12)",
+  background: `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.primary.main})`,
+  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.15)",
   textTransform: "none",
-  transition: "all 0.2s ease",
+  fontSize: "1.1rem",
+  transition: "all 0.3s ease",
   "&:hover": {
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-    filter: "brightness(1.05)",
+    boxShadow: "0 6px 14px rgba(0, 0, 0, 0.2)",
+    transform: "translateY(-3px)",
+    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.main})`,
   },
 }));
 
@@ -274,18 +303,18 @@ export const Navigation = () => {
   ];
 
   const drawer = (
-    <Box sx={{ width: 270, height: "100%" }}>
+    <Box sx={{ width: 280, height: "100%" }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           p: 2,
-          backgroundColor: (theme) => theme.palette.primary.main,
+          background: (theme) => `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.primary.main})`,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Logo src={logo} alt="HVAC Pro Logo" sx={{ height: 38, mr: 1 }} />
+          <Logo src={logo} alt="HVAC Pro Logo" sx={{ height: 42, mr: 1 }} />
           {/* <Typography variant="h6" sx={{ color: "white", fontWeight: 700 }}>
             HVAC Pro
           </Typography> */}
@@ -293,7 +322,14 @@ export const Navigation = () => {
         <IconButton
           onClick={handleDrawerToggle}
           size="medium"
-          sx={{ color: "white" }}
+          sx={{ 
+            color: "white",
+            transition: "all 0.2s ease",
+            "&:hover": {
+              backgroundColor: alpha("#ffffff", 0.2),
+              transform: "rotate(90deg)"
+            }
+          }}
         >
           <CloseIcon />
         </IconButton>
@@ -312,13 +348,17 @@ export const Navigation = () => {
               active={item.active ? 1 : 0}
               component={item.name !== "Services" ? "a" : "div"}
               href={item.name !== "HVAC" ? item.link : undefined}
+              sx={{
+                overflow: "hidden"
+              }}
             >
               <ListItemText
                 primary={item.name}
                 primaryTypographyProps={{
-                  fontWeight: item.active ? 700 : 500,
+                  fontWeight: item.active ? 900 : 700,
                   color: item.active ? "primary.main" : "text.primary",
-                  fontSize: "0.95rem",
+                  fontSize: "1.1rem",
+                  letterSpacing: "0.3px"
                 }}
               />
               {item.name === "Services" &&
@@ -327,18 +367,34 @@ export const Navigation = () => {
 
             {item.name === "Services" && (
               <Collapse in={servicesOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+                <List 
+                  component="div" 
+                  disablePadding
+                  sx={{ 
+                    backgroundColor: (theme) => alpha(theme.palette.grey[100], 0.5),
+                    borderRadius: "0 0 8px 8px"
+                  }}
+                >
                   <ListItem
                     button
                     component="a"
                     href="#hvac-service-1"
                     onClick={() => handleNavClick("#hvac-service-1")}
-                    sx={{ pl: 4, py: 1 }}
+                    sx={{ 
+                      pl: 4, 
+                      py: 1.2,
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                        pl: 5,
+                      }
+                    }}
                   >
                     <ListItemText
                       primary="HVAC Design"
                       primaryTypographyProps={{
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
+                        fontWeight: 600
                       }}
                     />
                   </ListItem>
@@ -347,12 +403,21 @@ export const Navigation = () => {
                     component="a"
                     href="#hvac-service-2"
                     onClick={() => handleNavClick("#hvac-service-2")}
-                    sx={{ pl: 4, py: 1 }}
+                    sx={{ 
+                      pl: 4, 
+                      py: 1.2,
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                        pl: 5,
+                      }
+                    }}
                   >
                     <ListItemText
                       primary="Ventilation Systems"
                       primaryTypographyProps={{
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
+                        fontWeight: 600
                       }}
                     />
                   </ListItem>
@@ -361,12 +426,21 @@ export const Navigation = () => {
                     component="a"
                     href="#hvac-service-3"
                     onClick={() => handleNavClick("#hvac-service-3")}
-                    sx={{ pl: 4, py: 1 }}
+                    sx={{ 
+                      pl: 4, 
+                      py: 1.2,
+                      transition: "all 0.2s ease",
+                      "&:hover": {
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+                        pl: 5,
+                      }
+                    }}
                   >
                     <ListItemText
                       primary="Air Conditioning"
                       primaryTypographyProps={{
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
+                        fontWeight: 600
                       }}
                     />
                   </ListItem>
@@ -379,32 +453,46 @@ export const Navigation = () => {
 
       <Divider />
 
-      <Box sx={{ p: 3, backgroundColor: "grey.50" }}>
+      <Box sx={{ p: 3, backgroundColor: (theme) => alpha(theme.palette.grey[100], 0.7) }}>
         <Typography
           variant="subtitle2"
           color="primary"
           sx={{
             mb: 2,
-            fontWeight: 600,
+            fontWeight: 700,
             textTransform: "uppercase",
-            letterSpacing: 0.5,
+            letterSpacing: 0.8,
+            fontSize: "1rem",
           }}
         >
           Contact Us
         </Typography>
 
-        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+        <Box 
+          sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            mb: 2,
+            transition: "all 0.2s ease",
+            p: 1,
+            borderRadius: 1,
+            "&:hover": {
+              backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+              transform: "translateX(4px)"
+            }
+          }}
+        >
           <Box
             sx={{
               backgroundColor: "primary.main",
               borderRadius: "50%",
-              width: 32,
-              height: 32,
+              width: 36,
+              height: 36,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               mr: 2,
-              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+              boxShadow: "0 3px 8px rgba(0, 0, 0, 0.12)",
             }}
           >
             <PhoneIcon fontSize="small" sx={{ color: "white" }} />
@@ -416,25 +504,38 @@ export const Navigation = () => {
             sx={{
               color: "text.primary",
               textDecoration: "none",
-              fontWeight: 500,
+              fontWeight: 600,
+              fontSize: "1rem",
             }}
           >
             +91-7798097620
           </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box 
+          sx={{ 
+            display: "flex", 
+            alignItems: "center",
+            transition: "all 0.2s ease",
+            p: 1,
+            borderRadius: 1,
+            "&:hover": {
+              backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.06),
+              transform: "translateX(4px)"
+            }
+          }}
+        >
           <Box
             sx={{
               backgroundColor: "primary.main",
               borderRadius: "50%",
-              width: 32,
-              height: 32,
+              width: 36,
+              height: 36,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               mr: 2,
-              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+              boxShadow: "0 3px 8px rgba(0, 0, 0, 0.12)",
             }}
           >
             <EmailIcon fontSize="small" sx={{ color: "white" }} />
@@ -451,7 +552,8 @@ export const Navigation = () => {
               textOverflow: "ellipsis",
               maxWidth: "190px",
               display: "block",
-              fontWeight: 500,
+              fontWeight: 600,
+              fontSize: "1rem",
             }}
           >
             dhake9322@gmail.com
@@ -482,10 +584,14 @@ export const Navigation = () => {
             href="/"
             sx={{
               backgroundColor: "white",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
+              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+              width: 36,
+              height: 36,
+              transition: "all 0.2s ease",
               "&:hover": {
                 backgroundColor: "white",
-                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.12)",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.15)",
+                transform: "translateY(-3px)",
               },
             }}
           >
@@ -513,20 +619,36 @@ export const Navigation = () => {
                 <TopBarButton
                   startIcon={<PhoneIcon sx={{ fontSize: 18 }} />}
                   href="tel:+917798097620"
+                  sx={{ 
+                    fontSize: '16px', 
+                    textTransform: 'none',
+                    borderRadius: 20,
+                    pl: 2,
+                    transition: "all 0.2s ease",
+                    "&:hover": {
+                      backgroundColor: alpha("#ffffff", 0.15),
+                      transform: "translateY(-1px)",
+                    }
+                  }}
                 >
                   +91-7798097620
                 </TopBarButton>
                 <TopBarButton
                   startIcon={<EmailIcon sx={{ fontSize: 18 }} />}
                   href="mailto:dhake9322@gmail.com"
+                  sx={{ 
+                    fontSize: '16px', 
+                    textTransform: 'none',
+                    borderRadius: 20,
+                    pl: 2,
+                    transition: "all 0.2s ease",
+                    "&:hover": {
+                      backgroundColor: alpha("#ffffff", 0.15),
+                      transform: "translateY(-1px)",
+                    }
+                  }}
                 >
                   dhake9322@gmail.com
-                </TopBarButton>
-                <TopBarButton
-                  startIcon={<LocationOnIcon sx={{ fontSize: 18 }} />}
-                  href="https://maps.google.com"
-                >
-                  Mumbai, India
                 </TopBarButton>
               </Box>
 
@@ -570,6 +692,10 @@ export const Navigation = () => {
                 <MobileContactButton
                   startIcon={<PhoneIcon sx={{ fontSize: 16 }} />}
                   href="tel:+917798097620"
+                  sx={{ 
+                    fontSize: "0.9rem",
+                    borderRadius: 20,
+                  }}
                 >
                   Call Now
                 </MobileContactButton>
@@ -577,6 +703,10 @@ export const Navigation = () => {
                 <MobileContactButton
                   startIcon={<WhatsAppIcon sx={{ fontSize: 16 }} />}
                   href="https://wa.me/917798097620"
+                  sx={{ 
+                    fontSize: "0.9rem",
+                    borderRadius: 20,
+                  }}
                 >
                   WhatsApp
                 </MobileContactButton>
@@ -587,10 +717,12 @@ export const Navigation = () => {
                 sx={{
                   color: "white",
                   backgroundColor: alpha("#ffffff", 0.15),
-                  width: 30,
-                  height: 30,
+                  width: 32,
+                  height: 32,
+                  transition: "all 0.2s ease",
                   "&:hover": {
                     backgroundColor: alpha("#ffffff", 0.25),
+                    transform: "rotate(15deg)",
                   },
                 }}
                 component="a"
@@ -623,6 +755,10 @@ export const Navigation = () => {
                   display: "flex",
                   alignItems: "center",
                   textDecoration: "none",
+                  transition: "transform 0.2s ease",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                  },
                 }}
               >
                 <Logo
@@ -680,9 +816,13 @@ export const Navigation = () => {
                   color: "primary.main",
                   backgroundColor: (theme) =>
                     alpha(theme.palette.primary.main, 0.08),
+                  width: 42,
+                  height: 42,
+                  transition: "all 0.2s ease",
                   "&:hover": {
                     backgroundColor: (theme) =>
                       alpha(theme.palette.primary.main, 0.12),
+                    transform: "rotate(180deg)",
                   },
                 }}
               >
@@ -706,7 +846,8 @@ export const Navigation = () => {
           sx={{
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: 270,
+              width: 280,
+              borderRadius: "12px 0 0 12px",
             },
           }}
         >

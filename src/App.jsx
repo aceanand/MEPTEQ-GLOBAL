@@ -12,7 +12,7 @@ import { HVAC } from "./components/HVAC";
 import { Elv } from "./components/Elv";
 import { Plumber } from "./components/Plumber";
 import Contact from "./components/contact";
-
+import Footer from "./components/Footer";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -37,6 +37,8 @@ const App = () => {
       <Testimonials data={landingPageData.Testimonials} />
 
       <Contact data={landingPageData.Contact} />
+      
+      <Footer data={landingPageData.Footer} />
     </div>
   );
 };

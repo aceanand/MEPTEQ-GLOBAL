@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
 import {
   TextField,
   Button,
@@ -29,6 +30,11 @@ import {
   Instagram as InstagramIcon,
 } from "@mui/icons-material";
 
+// EmailJS configuration constants
+const EMAILJS_SERVICE_ID = "service_zr7oaba";
+const EMAILJS_TEMPLATE_ID = "template_1epmvcf";
+const EMAILJS_PUBLIC_KEY = "yTnbQA8yId-vz5a_J";
+
 const initialState = {
   name: "",
   email: "",
@@ -50,6 +56,12 @@ const Contact = () => {
     errorMessage: "",
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    // Initialize EmailJS with your Public Key
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }, []);
 
   // Validate form
   const validateForm = () => {
@@ -96,7 +108,7 @@ const Contact = () => {
     setErrors({});
   };
 
-  // Handle form submission
+  // Handle form submission with EmailJS
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -114,17 +126,35 @@ const Contact = () => {
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form submitted with:", formData);
-      clearForm();
-      setSubmitStatus({
-        isSubmitting: false,
-        isSuccess: true,
-        errorMessage: "",
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      from_phone: formData.phone || 'Not provided',
+      subject: formData.subject || 'Contact Form Submission',
+      message: formData.message
+    };
+
+    // Send email using EmailJS
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then((response) => {
+        console.log("Email sent successfully:", response);
+        clearForm();
+        setSubmitStatus({
+          isSubmitting: false,
+          isSuccess: true,
+          errorMessage: "",
+        });
+        setSnackbarOpen(true);
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        setSubmitStatus({
+          isSubmitting: false,
+          isSuccess: false,
+          errorMessage: "Failed to send message. Please try again later.",
+        });
       });
-      setSnackbarOpen(true);
-    }, 1500);
   };
 
   const handleSnackbarClose = () => {
@@ -150,7 +180,7 @@ const Contact = () => {
           width: "300px",
           height: "300px",
           borderRadius: "50%",
-          background: "linear-gradient(45deg, #4a90e2, #63b3ed)",
+          background: "linear-gradient(45deg, #4a90e2,rgb(93, 142, 177))",
           opacity: 0.1,
           top: "-100px",
           right: "-100px",
@@ -164,7 +194,7 @@ const Contact = () => {
           height: "200px",
           borderRadius: "50%",
           background: "linear-gradient(45deg, #f97316, #fb923c)",
-          opacity: 0.1,
+          opacity: 0.2,
           bottom: "-50px",
           left: "-50px",
           zIndex: 0,
@@ -192,7 +222,7 @@ const Contact = () => {
           >
             Get In Touch
           </Typography>
-          <Typography
+          {/* <Typography
             variant="h6"
             sx={{
               maxWidth: "800px",
@@ -206,7 +236,7 @@ const Contact = () => {
             We'd love to hear from you! Whether you have a question about our
             services, pricing, or anything else, our team is ready to answer all
             your questions.
-          </Typography>
+          </Typography> */}
           <Divider
             sx={{
               width: "100px",
@@ -559,7 +589,7 @@ const Contact = () => {
                 />
               </Paper>
 
-              <Paper
+              {/* <Paper
                 elevation={10}
                 sx={{
                   p: { xs: 3, sm: 4 },
@@ -574,8 +604,8 @@ const Contact = () => {
                     boxShadow: "0 15px 30px rgba(0,0,0,0.15)",
                   },
                 }}
-              >
-                <Typography
+              > */}
+                {/* <Typography
                   variant="h5"
                   gutterBottom
                   sx={{
@@ -585,9 +615,9 @@ const Contact = () => {
                   }}
                 >
                   Connect With Us
-                </Typography>
+                </Typography> */}
 
-                <Box
+                {/* <Box
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -598,8 +628,8 @@ const Contact = () => {
                   <SocialButton icon={<TwitterIcon />} />
                   <SocialButton icon={<LinkedInIcon />} />
                   <SocialButton icon={<InstagramIcon />} />
-                </Box>
-              </Paper>
+                </Box> */}
+              {/* </Paper> */}
             </Box>
           </Grid>
         </Grid>
@@ -625,8 +655,7 @@ const Contact = () => {
         </Alert>
       </Snackbar>
 
-      {/* Footer */}
-      <Footer />
+     
     </Box>
   );
 };
@@ -674,6 +703,7 @@ const ContactInfo = ({ icon, title, text }) => (
         sx={{
           color: "rgba(255, 255, 255, 0.8)",
           mt: 0.5,
+          
           fontSize: "12px", // Increased font size for text
         }}
       >
@@ -699,150 +729,6 @@ const SocialButton = ({ icon }) => (
   >
     {icon}
   </IconButton>
-);
-
-// Footer Component
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <Box
-      sx={{
-        backgroundColor: "#0f172a",
-        color: "#e2e8f0",
-        py: 6,
-        mt: 10,
-      }}
-    >
-      <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="space-between">
-          {/* Company Info */}
-          <Grid item xs={12} md={4}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{
-                fontWeight: 700,
-                color: "white",
-                mb: 3,
-                fontSize: { xs: "1.5rem", sm: "1.75rem" },
-              }}
-            >
-              Mepteq
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "#94a3b8",
-                mb: 3,
-                maxWidth: "300px",
-                fontSize: { xs: "0.875rem", sm: "1.5rem" },
-              }}
-            >
-              MepTeq specializes in providing high-quality solutions in HVAC
-              (Heating, Ventilation, and Air Conditioning), plumbing, electrical
-              systems, and fire protection services. Our expertise ensures
-              efficient design, installation, and maintenance for residential,
-              commercial, and industrial projects, ensuring compliance with
-              safety standards and optimal system performance.
-            </Typography>
-          </Grid>
-
-          {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography
-              variant="h6"
-              gutterBottom
-              sx={{
-                fontWeight: 900,
-                color: "#3b82f6",
-                mb: 4,
-              }}
-            >
-              Quick Links
-            </Typography>
-            <FooterLink text="About Us" />
-            <FooterLink text="Services" />
-            <FooterLink text="Portfolio" />
-            <FooterLink text="Testimonials" />
-            <FooterLink text="Contact" />
-          </Grid>
-
-          {/* Social Media */}
-          <Grid item xs={12} md={2}>
-            <Typography
-              variant="h6"
-              gutterBottom
-              sx={{
-                fontWeight: 600,
-                color: "#3b82f6",
-                mb: 3,
-              }}
-            >
-              Follow Us
-            </Typography>
-            <Box sx={{ display: "flex", gap: 2 }}>
-              <IconButton
-                size="small"
-                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
-              >
-                <FacebookIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
-              >
-                <TwitterIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
-              >
-                <LinkedInIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{ color: "#3b82f6", "&:hover": { color: "white" } }}
-              >
-                <InstagramIcon sx={{ fontSize: 28 }} />
-              </IconButton>
-            </Box>
-          </Grid>
-        </Grid>
-
-        <Divider sx={{ my: 4, borderColor: "#334155" }} />
-
-        <Typography
-          variant="body2"
-          align="center"
-          sx={{ color: "#64748b", fontSize: "14px" }}
-        >
-          © {currentYear} Mepteq.com | All rights reserved.
-        </Typography>
-      </Container>
-    </Box>
-  );
-};
-
-// Footer Link Component
-const FooterLink = ({ text }) => (
-  <Typography
-    variant="body2"
-    sx={{
-      cursor: "pointer",
-      color: "#94a3b8",
-      transition: "all 0.2s ease",
-      display: "block",
-      fontSize: "14px",
-      mb: 1.5,
-      "&:hover": {
-        color: "white",
-        transform: "translateX(5px)",
-      },
-    }}
-  >
-    {text}
-  </Typography>
 );
 
 export default Contact;
