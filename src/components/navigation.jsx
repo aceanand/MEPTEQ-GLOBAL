@@ -30,6 +30,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import WorkIcon from "@mui/icons-material/Work";
 
 import { keyframes } from "@emotion/react";
 
@@ -219,6 +220,38 @@ const CallNowButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+// Career Button with special styling
+const CareerButton = styled(Button)(({ theme, active }) => ({
+  margin: theme.spacing(0, 0.8),
+  color: active ? "white" : theme.palette.text.primary,
+  fontWeight: 700,
+  borderRadius: 20,
+  padding: theme.spacing(1, 2.5),
+  textTransform: "none",
+  fontSize: "1.1rem", 
+  letterSpacing: "0.3px",
+  position: "relative",
+  background: active 
+    ? `linear-gradient(45deg, #4caf50, #66bb6a)`
+    : "transparent",
+  border: active ? "none" : `2px solid ${theme.palette.success.main}`,
+  transition: "all 0.3s ease",
+  "&:hover": {
+    background: `linear-gradient(45deg, #4caf50, #66bb6a)`,
+    color: "white",
+    transform: "translateY(-2px)",
+    boxShadow: "0 6px 12px rgba(76, 175, 80, 0.3)",
+  },
+  "&::before": {
+    content: '"🚀"',
+    position: "absolute",
+    left: -8,
+    top: -8,
+    fontSize: "1.2rem",
+    animation: active ? "bounce 2s infinite" : "none",
+  },
+}));
+
 export const Navigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -237,7 +270,14 @@ export const Navigation = () => {
 
     // Add listener for hash changes
     const handleHashChange = () => {
-      setCurrentPath(window.location.hash || "/");
+      const newPath = window.location.hash || "/";
+      setCurrentPath(newPath);
+      
+      // If navigating to hire page, ensure it's properly handled
+      if (newPath === "#Hire" || newPath === "#hire" || newPath === "#career") {
+        // Trigger any necessary route handling here
+        window.location.hash = "#Hire";
+      }
     };
 
     // Hide/show navbar on scroll
@@ -279,12 +319,25 @@ export const Navigation = () => {
     setServicesOpen(!servicesOpen);
   };
 
-  const handleNavClick = (path) => {
+  const handleNavClick = (path, event) => {
     setCurrentPath(path);
     setMobileOpen(false);
+    
+    // For home page, scroll to top
+    if (path === "/") {
+      window.location.hash = "";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    
+    // For all hash links, let SmoothScroll handle the scrolling
+    // Just update the hash - SmoothScroll will do the rest
+    if (path.startsWith("#")) {
+      window.location.hash = path;
+    }
   };
 
-  // Navigation items
+  // Navigation items - FIXED the typo and improved routing
   const navItems = [
     { name: "Home", link: "/", active: currentPath === "/" },
     { name: "About", link: "#about", active: currentPath === "#about" },
@@ -292,6 +345,12 @@ export const Navigation = () => {
       name: "Projects",
       link: "#Portfolio",
       active: currentPath === "#Portfolio",
+    },
+    {
+      name: "Career", // FIXED: Changed from "Careear" to "Career"
+      link: "#Hire",
+      active: currentPath === "#Hire" || currentPath === "#hire" || currentPath === "#career",
+      special: true, // Mark as special for different styling
     },
     { name: "Services", link: "#HVAC", active: currentPath === "#HVAC" },
     {
@@ -315,9 +374,6 @@ export const Navigation = () => {
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Logo src={logo} alt="HVAC Pro Logo" sx={{ height: 42, mr: 1 }} />
-          {/* <Typography variant="h6" sx={{ color: "white", fontWeight: 700 }}>
-            HVAC Pro
-          </Typography> */}
         </Box>
         <IconButton
           onClick={handleDrawerToggle}
@@ -343,20 +399,61 @@ export const Navigation = () => {
               onClick={
                 item.name === "Services"
                   ? handleServicesToggle
-                  : () => handleNavClick(item.link)
+                  : (e) => handleNavClick(item.link, e)
               }
               active={item.active ? 1 : 0}
               component={item.name !== "Services" ? "a" : "div"}
-              href={item.name !== "HVAC" ? item.link : undefined}
+              href={item.name !== "Services" ? item.link : undefined}
               sx={{
-                overflow: "hidden"
+                overflow: "hidden",
+                // Special styling for career link
+                ...(item.name === "Career" && {
+                  background: item.active 
+                    ? "linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(102, 187, 106, 0.1))"
+                    : "transparent",
+                  borderLeft: item.active
+                    ? "4px solid #4caf50"
+                    : "4px solid transparent",
+                  "&:hover": {
+                    background: "linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(102, 187, 106, 0.1))",
+                    borderLeft: "4px solid #4caf50",
+                  }
+                })
               }}
             >
               <ListItemText
-                primary={item.name}
+                primary={
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    {item.name === "Career" && (
+                      <WorkIcon 
+                        sx={{ 
+                          color: item.active ? "#4caf50" : "text.secondary",
+                          fontSize: "1.2rem" 
+                        }} 
+                      />
+                    )}
+                    <span>{item.name}</span>
+                    {item.name === "Career" && (
+                      <Box
+                        sx={{
+                          background: "linear-gradient(45deg, #4caf50, #66bb6a)",
+                          color: "white",
+                          fontSize: "0.7rem",
+                          padding: "2px 6px",
+                          borderRadius: "10px",
+                          fontWeight: "bold",
+                          animation: "pulse 2s infinite"
+                        }}
+                      >
+                        NEW
+                      </Box>
+                    )}
+                  </Box>
+                }
                 primaryTypographyProps={{
                   fontWeight: item.active ? 900 : 700,
-                  color: item.active ? "primary.main" : "text.primary",
+                  color: item.name === "Career" && item.active ? "#4caf50" : 
+                          item.active ? "primary.main" : "text.primary",
                   fontSize: "1.1rem",
                   letterSpacing: "0.3px"
                 }}
@@ -379,7 +476,7 @@ export const Navigation = () => {
                     button
                     component="a"
                     href="#hvac-service-1"
-                    onClick={() => handleNavClick("#hvac-service-1")}
+                    onClick={(e) => handleNavClick("#hvac-service-1", e)}
                     sx={{ 
                       pl: 4, 
                       py: 1.2,
@@ -402,7 +499,7 @@ export const Navigation = () => {
                     button
                     component="a"
                     href="#hvac-service-2"
-                    onClick={() => handleNavClick("#hvac-service-2")}
+                    onClick={(e) => handleNavClick("#hvac-service-2", e)}
                     sx={{ 
                       pl: 4, 
                       py: 1.2,
@@ -425,7 +522,7 @@ export const Navigation = () => {
                     button
                     component="a"
                     href="#hvac-service-3"
-                    onClick={() => handleNavClick("#hvac-service-3")}
+                    onClick={(e) => handleNavClick("#hvac-service-3", e)}
                     sx={{ 
                       pl: 4, 
                       py: 1.2,
@@ -766,19 +863,6 @@ export const Navigation = () => {
                   alt="HVAC Pro Logo"
                   trigger={trigger ? 1 : 0}
                 />
-                {/* <Typography
-                  variant="h6"
-                  sx={{
-                    ml: 1,
-                    fontWeight: 700,
-                    color: "primary.main",
-                    display: { xs: "none", sm: "block" },
-                    fontSize: trigger ? "1.2rem" : "1.35rem",
-                    transition: "font-size 0.3s ease",
-                  }}
-                >
-                  HVAC Pro
-                </Typography> */}
               </Box>
             </Box>
 
@@ -786,15 +870,28 @@ export const Navigation = () => {
             <Hidden mdDown>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 {navItems.map((item) => (
-                  <NavButton
-                    key={item.name}
-                    component="a"
-                    href={item.link}
-                    active={item.active ? 1 : 0}
-                    onClick={() => handleNavClick(item.link)}
-                  >
-                    {item.name}
-                  </NavButton>
+                  item.special ? (
+                    <CareerButton
+                      key={item.name}
+                      component="a"
+                      href={item.link}
+                      active={item.active ? 1 : 0}
+                      onClick={(e) => handleNavClick(item.link, e)}
+                      startIcon={<WorkIcon />}
+                    >
+                      {item.name}
+                    </CareerButton>
+                  ) : (
+                    <NavButton
+                      key={item.name}
+                      component="a"
+                      href={item.link}
+                      active={item.active ? 1 : 0}
+                      onClick={(e) => handleNavClick(item.link, e)}
+                    >
+                      {item.name}
+                    </NavButton>
+                  )
                 ))}
                 <CallNowButton
                   component="a"

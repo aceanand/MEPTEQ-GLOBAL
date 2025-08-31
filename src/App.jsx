@@ -13,6 +13,7 @@ import { Elv } from "./components/Elv";
 import { Plumber } from "./components/Plumber";
 import Contact from "./components/contact";
 import Footer from "./components/Footer";
+import  Hire  from "./components/Hire";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -35,7 +36,7 @@ const App = () => {
       <Plumber data={landingPageData.Plumber} />
       <Elv data={landingPageData.Elv} />
       <Testimonials data={landingPageData.Testimonials} />
-
+      <Hire data={landingPageData.Hire} />
       <Contact data={landingPageData.Contact} />
       
       <Footer data={landingPageData.Footer} />
