@@ -12,15 +12,9 @@ const Hire = () => {
     motivation: '',
     position: ''
   });
-  const [animateStats, setAnimateStats] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
   const [formErrors, setFormErrors] = useState({});
-
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimateStats(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Initialize EmailJS
   useEffect(() => {
@@ -43,46 +37,6 @@ const Hire = () => {
       requirements: ['Electrical CAD', '3+ Years Experience', 'Circuit Design', 'Code Knowledge'],
       color: '#ed6c02',
       colorLight: '#ff9800'
-    }
-  ];
-
-  const companyStats = [
-    { number: '50+', label: 'Projects Completed', icon: '✓' },
-    { number: '15+', label: 'Years Experience', icon: '⭐' },
-    { number: '200+', label: 'Happy Clients', icon: '👥' },
-    { number: '95%', label: 'Success Rate', icon: '📈' }
-  ];
-
-  const benefits = [
-    {
-      icon: '💼',
-      title: 'Career Growth',
-      description: 'Continuous learning opportunities and clear advancement paths in a growing company.'
-    },
-    {
-      icon: '🎓',
-      title: 'Training & Development',
-      description: 'Regular training sessions and skill development programs to enhance your expertise.'
-    },
-    {
-      icon: '👥',
-      title: 'Dynamic Team',
-      description: 'Collaborative environment with passionate professionals who support each other.'
-    },
-    {
-      icon: '💰',
-      title: 'Competitive Benefits',
-      description: 'Attractive salary packages with comprehensive benefits and performance incentives.'
-    },
-    {
-      icon: '🏢',
-      title: 'Modern Office',
-      description: 'State-of-the-art facilities with latest technology and comfortable working environment.'
-    },
-    {
-      icon: '⏰',
-      title: 'Work-Life Balance',
-      description: 'Flexible working hours and policies that support your personal and professional life.'
     }
   ];
 
@@ -126,7 +80,6 @@ const Hire = () => {
 
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
-    // Clear error for this field when user starts typing
     if (formErrors[field]) {
       setFormErrors({ ...formErrors, [field]: '' });
     }
@@ -152,7 +105,6 @@ const Hire = () => {
         position: formData.position,
         experience: formData.experience,
         motivation: formData.motivation,
-
         application_date: currentDate.toLocaleDateString('en-US', {
           weekday: 'long',
           year: 'numeric',
@@ -214,130 +166,96 @@ const Hire = () => {
       animation: 'float 8s ease-in-out infinite'
     },
     content: {
-      maxWidth: '1400px',
+      maxWidth: '1200px',
       margin: '0 auto',
-      padding: 'clamp(10px, 3vw, 30px)',
+      padding: '20px',
       position: 'relative',
       zIndex: 1
     },
     header: {
       textAlign: 'center',
-      marginBottom: 'clamp(40px, 8vw, 80px)',
+      marginBottom: '80px',
       animation: 'slideInUp 1s ease-out'
     },
-    logoContainer: {
+    brandContainer: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: 'clamp(20px, 4vw, 40px)',
-      animation: 'pulse 3s ease-in-out infinite'
+      marginBottom: '40px',
+      animation: 'fadeInScale 1.2s ease-out'
     },
-    logo: {
-      width: 'clamp(60px, 12vw, 100px)',
-      height: 'clamp(60px, 12vw, 100px)',
-      background: 'linear-gradient(45deg, #8B4513, #D2691E)',
-      borderRadius: '16px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      boxShadow: '0 10px 40px rgba(0,0,0,0.4)'
+    brandName: {
+      fontSize: 'clamp(1.5rem, 5vw, 2.5rem)',
+      fontWeight: '800',
+      color: '#ffffff',
+      letterSpacing: '4px',
+      marginBottom: '15px',
+      textShadow: '2px 2px 12px rgba(0,0,0,0.3)',
+      background: 'linear-gradient(135deg, #ffffff, #e3f2fd)',
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent'
     },
-    logoOverlay: {
-      width: '75%',
-      height: '75%',
-      background: 'linear-gradient(45deg, #4FC3F7, #29B6F6)',
-      borderRadius: '12px',
-      position: 'absolute',
-      top: '15%',
-      left: '25%'
-    },
-    logoText: {
-      color: 'white',
-      fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-      fontWeight: 'bold',
-      zIndex: 1
+    brandLine: {
+      width: '120px',
+      height: '4px',
+      background: 'linear-gradient(90deg, #4FC3F7, #29B6F6, #1976d2)',
+      borderRadius: '2px',
+      animation: 'expandWidth 1.5s ease-out 0.5s both'
     },
     mainTitle: {
-      fontSize: 'clamp(2rem, 10vw, 5rem)',
+      fontSize: 'clamp(3rem, 10vw, 5rem)',
       fontWeight: '900',
-      color: 'white',
-      marginBottom: 'clamp(15px, 3vw, 30px)',
-      textShadow: '3px 3px 6px rgba(0,0,0,0.4)',
-      animation: 'slideInRight 1s ease-out',
-      letterSpacing: '2px'
+      color: '#ffffff',
+      marginBottom: '30px',
+      textShadow: '3px 3px 15px rgba(0,0,0,0.4)',
+      animation: 'slideInUp 1.2s ease-out 0.3s both',
+      letterSpacing: '3px',
+      background: 'linear-gradient(135deg, #ffffff, #4FC3F7)',
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      position: 'relative'
     },
     subtitle: {
-      fontSize: 'clamp(1rem, 3vw, 1.4rem)',
-      color: 'rgba(255,255,255,0.95)',
-      maxWidth: '900px',
+      fontSize: 'clamp(1.1rem, 4vw, 1.3rem)',
+      color: '#f8f9fa',
+      maxWidth: '800px',
       margin: '0 auto',
-      lineHeight: 1.8,
+      lineHeight: 1.6,
       animation: 'slideInRight 1s ease-out 0.3s both',
       padding: '0 20px',
       fontWeight: '300'
     },
-    statsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: 'clamp(15px, 4vw, 30px)',
-      marginBottom: 'clamp(50px, 10vw, 100px)',
-      padding: '0 10px'
-    },
-    statCard: {
-      padding: 'clamp(20px, 5vw, 40px)',
-      textAlign: 'center',
-      background: 'rgba(255,255,255,0.12)',
-      backdropFilter: 'blur(20px)',
-      border: '1px solid rgba(255,255,255,0.25)',
-      borderRadius: '24px',
-      color: 'white',
-      transition: 'all 0.4s ease',
-      animation: animateStats ? 'slideInUp 1s ease-out' : 'none',
-      cursor: 'pointer',
-      position: 'relative',
-      overflow: 'hidden'
-    },
-    statNumber: {
-      fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-      fontWeight: '800',
-      marginBottom: '15px',
-      color: '#4FC3F7',
-      textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-    },
-    statLabel: {
-      fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
-      opacity: 0.95,
-      fontWeight: '500'
-    },
     sectionTitle: {
-      fontSize: 'clamp(2rem, 8vw, 4rem)',
+      fontSize: 'clamp(2rem, 6vw, 3rem)',
       textAlign: 'center',
-      color: 'white',
-      marginBottom: 'clamp(40px, 8vw, 80px)',
-      fontWeight: '800',
-      textShadow: '3px 3px 6px rgba(0,0,0,0.4)',
+      color: '#ffffff',
+      marginBottom: '50px',
+      fontWeight: '700',
+      textShadow: '2px 2px 6px rgba(0,0,0,0.3)',
       animation: 'slideInUp 1.2s ease-out',
       letterSpacing: '1px'
     },
     positionsGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-      gap: 'clamp(25px, 5vw, 50px)',
-      marginBottom: 'clamp(60px, 12vw, 120px)',
+      gap: '40px',
+      marginBottom: '80px',
       padding: '0 10px'
     },
     positionCard: {
-      background: 'rgba(255,255,255,0.98)',
-      borderRadius: '28px',
-      padding: 'clamp(25px, 5vw, 50px)',
+      background: 'rgba(255,255,255,0.95)',
+      backdropFilter: 'blur(20px)',
+      borderRadius: '24px',
+      padding: '40px',
       transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
       position: 'relative',
       overflow: 'hidden',
       animation: 'slideInUp 1s ease-out',
-      boxShadow: '0 15px 40px rgba(0,0,0,0.15)',
+      boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.1)',
       cursor: 'pointer',
-      border: '1px solid rgba(0,0,0,0.05)'
+      border: '1px solid rgba(79,195,247,0.1)'
     },
     positionHeader: {
       display: 'flex',
@@ -347,29 +265,30 @@ const Hire = () => {
       gap: '15px'
     },
     positionIcon: {
-      fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+      fontSize: '3rem',
       marginRight: '15px'
     },
     positionTitle: {
-      fontSize: 'clamp(1.4rem, 3.5vw, 2.2rem)',
+      fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
       fontWeight: '700',
       margin: 0,
       flex: 1,
       minWidth: '200px',
-      lineHeight: 1.2
+      lineHeight: 1.2,
+      color: '#2d3748'
     },
     positionDescription: {
-      color: '#555',
-      lineHeight: 1.8,
+      color: '#4a5568',
+      lineHeight: 1.7,
       marginBottom: '30px',
-      fontSize: 'clamp(1rem, 2.2vw, 1.2rem)',
+      fontSize: '1.1rem',
       fontWeight: '400'
     },
     requirementsTitle: {
-      fontSize: 'clamp(1.1rem, 2.8vw, 1.4rem)',
+      fontSize: '1.2rem',
       fontWeight: '600',
       marginBottom: '20px',
-      color: '#333'
+      color: '#2d3748'
     },
     requirementsList: {
       display: 'flex',
@@ -378,22 +297,23 @@ const Hire = () => {
       marginBottom: '35px'
     },
     requirementChip: {
-      padding: '10px 20px',
+      padding: '10px 18px',
       border: '2px solid',
-      borderRadius: '30px',
-      fontSize: 'clamp(0.85rem, 2vw, 1rem)',
+      borderRadius: '25px',
+      fontSize: '0.95rem',
       fontWeight: '600',
       transition: 'all 0.3s ease',
       cursor: 'pointer',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      color: '#4a5568'
     },
     applyBtn: {
       width: '100%',
-      padding: '18px',
+      padding: '16px',
       color: 'white',
       border: 'none',
-      borderRadius: '20px',
-      fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
+      borderRadius: '12px',
+      fontSize: '1.1rem',
       fontWeight: '700',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
@@ -402,99 +322,58 @@ const Hire = () => {
       textTransform: 'uppercase',
       letterSpacing: '1px'
     },
-    whyChooseUs: {
+    contactSection: {
+      textAlign: 'center',
+      padding: '30px 20px',
       background: 'rgba(255,255,255,0.12)',
-      backdropFilter: 'blur(20px)',
-      border: '1px solid rgba(255,255,255,0.25)',
-      borderRadius: '32px',
-      padding: 'clamp(40px, 8vw, 80px) clamp(25px, 5vw, 50px)',
-      marginBottom: 'clamp(60px, 12vw, 120px)',
-      color: 'white',
-      animation: 'slideInUp 1.5s ease-out',
+      backdropFilter: 'blur(30px)',
+      borderRadius: '52px',
+      border: '1px solid rgba(255,255,255,0.2)',
+      animation: 'slideInUp 2s ease-out',
       position: 'relative',
       overflow: 'hidden'
     },
-    benefitsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: 'clamp(25px, 5vw, 50px)'
-    },
-    benefitItem: {
-      textAlign: 'center',
-      transition: 'transform 0.4s ease',
-      padding: '20px',
-      borderRadius: '20px',
-      background: 'rgba(255,255,255,0.08)',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255,255,255,0.15)'
-    },
-    benefitIcon: {
-      fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-      marginBottom: '25px',
-      display: 'block',
-      animation: 'bounce 3s ease-in-out infinite'
-    },
-    benefitTitle: {
-      fontSize: 'clamp(1.3rem, 3vw, 1.8rem)',
-      fontWeight: '700',
-      marginBottom: '20px'
-    },
-    benefitDescription: {
-      opacity: 0.95,
-      lineHeight: 1.7,
-      fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)',
-      fontWeight: '400'
-    },
-    contactSection: {
-      textAlign: 'center',
-      padding: 'clamp(40px, 8vw, 60px)',
-      background: 'rgba(255,255,255,0.15)',
-      backdropFilter: 'blur(20px)',
-      borderRadius: '32px',
-      border: '1px solid rgba(255,255,255,0.25)',
-      animation: 'slideInUp 2s ease-out'
-    },
     contactTitle: {
       fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
-      color: 'white',
+      color: '#ffffff',
       marginBottom: '40px',
-      fontWeight: '700'
+      fontWeight: '400'
     },
     contactInfo: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       flexWrap: 'wrap',
-      gap: '40px'
+      gap: '30px'
     },
     contactItem: {
       display: 'flex',
       alignItems: 'center',
-      color: 'white',
-      fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
+      color: '#f8f9fa',
+      fontSize: '1.2rem',
       transition: 'transform 0.3s ease',
       cursor: 'pointer',
       padding: '15px 25px',
-      borderRadius: '15px',
+      borderRadius: '12px',
       background: 'rgba(255,255,255,0.1)',
       backdropFilter: 'blur(10px)'
     },
     floatingContact: {
       position: 'fixed',
-      bottom: 'clamp(20px, 4vw, 40px)',
-      right: 'clamp(20px, 4vw, 40px)',
+      bottom: '30px',
+      right: '30px',
       zIndex: 999
     },
     floatingBtn: {
       background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
       color: 'white',
       border: 'none',
-      padding: 'clamp(12px, 3vw, 18px) clamp(20px, 4vw, 30px)',
+      padding: '15px 25px',
       borderRadius: '50px',
-      fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
+      fontSize: '1rem',
       fontWeight: '600',
       cursor: 'pointer',
-      boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+      boxShadow: '0 8px 25px rgba(0,0,0,0.3)',
       animation: 'float 4s ease-in-out infinite',
       transition: 'all 0.3s ease',
       display: 'flex',
@@ -513,16 +392,16 @@ const Hire = () => {
       alignItems: 'center',
       justifyContent: 'center',
       animation: openApplication ? 'fadeIn 0.4s ease' : 'none',
-      padding: 'clamp(15px, 3vw, 25px)',
+      padding: '20px',
       backdropFilter: 'blur(10px)'
     },
     modalContent: {
       background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-      borderRadius: '28px',
-      padding: 'clamp(25px, 6vw, 50px)',
+      borderRadius: '24px',
+      padding: '40px',
       maxWidth: '600px',
       width: '100%',
-      maxHeight: '95vh',
+      maxHeight: '90vh',
       overflowY: 'auto',
       position: 'relative',
       animation: openApplication ? 'slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)' : 'none',
@@ -532,9 +411,9 @@ const Hire = () => {
     modalHeader: {
       background: 'linear-gradient(135deg, #1976d2, #42a5f5)',
       color: 'white',
-      padding: 'clamp(20px, 4vw, 30px)',
-      borderRadius: '20px',
-      margin: 'calc(-1 * clamp(25px, 6vw, 50px)) calc(-1 * clamp(25px, 6vw, 50px)) 40px calc(-1 * clamp(25px, 6vw, 50px))',
+      padding: '25px',
+      borderRadius: '16px',
+      margin: '-40px -40px 30px -40px',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -544,7 +423,7 @@ const Hire = () => {
       background: 'rgba(255,255,255,0.2)',
       border: 'none',
       color: 'white',
-      fontSize: '1.8rem',
+      fontSize: '1.5rem',
       cursor: 'pointer',
       padding: '8px 12px',
       borderRadius: '50%',
@@ -558,47 +437,22 @@ const Hire = () => {
     },
     formLabel: {
       display: 'block',
-      marginBottom: '10px',
+      marginBottom: '8px',
       fontWeight: '600',
       color: '#2d3748',
-      fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)'
+      fontSize: '1rem'
     },
     formInput: {
       width: '100%',
-      padding: 'clamp(12px, 3vw, 16px)',
+      padding: '14px',
       border: '2px solid #e2e8f0',
-      borderRadius: '12px',
-      fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)',
+      borderRadius: '10px',
+      fontSize: '1rem',
       transition: 'all 0.3s ease',
       fontFamily: 'inherit',
       boxSizing: 'border-box',
-      backgroundColor: '#fafafa'
-    },
-    fileUpload: {
-      position: 'relative',
-      display: 'inline-block',
-      cursor: 'pointer',
-      width: '100%'
-    },
-    fileInput: {
-      position: 'absolute',
-      opacity: 0,
-      width: '100%',
-      height: '100%',
-      cursor: 'pointer'
-    },
-    fileLabel: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '10px',
-      padding: 'clamp(12px, 3vw, 16px)',
-      border: '2px dashed #cbd5e0',
-      borderRadius: '12px',
       backgroundColor: '#fafafa',
-      transition: 'all 0.3s ease',
-      cursor: 'pointer',
-      fontSize: 'clamp(0.95rem, 2.2vw, 1.1rem)'
+      color: '#2d3748'
     },
     submitBtn: {
       background: isSubmitting 
@@ -610,9 +464,9 @@ const Hire = () => {
         : 'linear-gradient(135deg, #1976d2, #42a5f5)',
       color: 'white',
       border: 'none',
-      padding: 'clamp(15px, 3vw, 20px) clamp(25px, 5vw, 40px)',
-      borderRadius: '15px',
-      fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+      padding: '16px 30px',
+      borderRadius: '12px',
+      fontSize: '1.1rem',
       fontWeight: '700',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
@@ -624,8 +478,8 @@ const Hire = () => {
       textAlign: 'center',
       marginBottom: '25px',
       padding: '15px',
-      borderRadius: '12px',
-      fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+      borderRadius: '10px',
+      fontSize: '1rem',
       fontWeight: '500'
     },
     successMessage: {
@@ -640,7 +494,7 @@ const Hire = () => {
     },
     fieldError: {
       color: '#e53e3e',
-      fontSize: 'clamp(0.8rem, 1.8vw, 0.9rem)',
+      fontSize: '0.9rem',
       marginTop: '5px',
       fontWeight: '500'
     }
@@ -663,15 +517,19 @@ const Hire = () => {
       to { transform: translateX(0); opacity: 1; }
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
+    @keyframes fadeInScale {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-25px); }
-      60% { transform: translateY(-15px); }
+    @keyframes expandWidth {
+      0% { width: 0; }
+      100% { width: 120px; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     @keyframes fadeIn {
@@ -679,56 +537,72 @@ const Hire = () => {
       to { opacity: 1; }
     }
 
-    .hover-lift:hover {
-      transform: translateY(-15px) scale(1.02) !important;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.2) !important;
-    }
-
-    .hover-scale:hover {
-      transform: scale(1.08) !important;
-    }
-
-    .hover-glow:hover {
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3) !important;
-      transform: translateY(-3px) !important;
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
     }
 
     .position-card:hover {
-      transform: translateY(-20px) scale(1.03) !important;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.25) !important;
+      transform: translateY(-15px) scale(1.02) !important;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(79,195,247,0.2) !important;
+      background: rgba(255,255,255,0.98) !important;
     }
 
-    .stat-card:hover {
-      transform: translateY(-15px) scale(1.05) !important;
-      background: rgba(255,255,255,0.2) !important;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2) !important;
+    .position-card::before {
+      content: '';
+      position: 'absolute';
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--card-color), var(--card-color-light));
+      border-radius: 24px 24px 0 0;
+      opacity: 0.8;
+    }
+
+    .position-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(79,195,247,0.03), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+
+    .position-card:hover::after {
+      opacity: 1;
+      animation: shimmer 1.5s ease-in-out;
     }
 
     .requirement-chip:hover {
       background: var(--chip-color) !important;
       color: white !important;
-      transform: translateY(-3px) scale(1.05) !important;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+      transform: translateY(-2px) scale(1.02) !important;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
     }
 
     .contact-item:hover {
-      transform: scale(1.1) translateY(-5px) !important;
+      transform: scale(1.05) translateY(-2px) !important;
       background: rgba(255,255,255,0.2) !important;
     }
 
     .floating-btn:hover {
-      transform: scale(1.1) !important;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4) !important;
+      transform: scale(1.05) !important;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.4) !important;
     }
 
     .apply-btn:hover {
-      transform: scale(1.03) translateY(-2px) !important;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3) !important;
+      transform: scale(1.02) translateY(-2px) !important;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
     }
 
     .submit-btn:hover:not(:disabled) {
-      transform: translateY(-3px) scale(1.02) !important;
-      box-shadow: 0 12px 30px rgba(25, 118, 210, 0.4) !important;
+      transform: translateY(-2px) scale(1.01) !important;
+      box-shadow: 0 10px 25px rgba(25, 118, 210, 0.4) !important;
     }
 
     .submit-btn:disabled {
@@ -739,28 +613,18 @@ const Hire = () => {
     .form-input:focus {
       outline: none !important;
       border-color: #1976d2 !important;
-      box-shadow: 0 0 15px rgba(25, 118, 210, 0.3) !important;
+      box-shadow: 0 0 12px rgba(25, 118, 210, 0.3) !important;
       background-color: white !important;
     }
 
     .form-input.error {
       border-color: #e53e3e !important;
-      box-shadow: 0 0 10px rgba(229, 62, 62, 0.3) !important;
-    }
-
-    .file-label:hover {
-      border-color: #1976d2 !important;
-      background-color: #f0f8ff !important;
+      box-shadow: 0 0 8px rgba(229, 62, 62, 0.3) !important;
     }
 
     .close-btn:hover {
       background: rgba(255,255,255,0.3) !important;
       transform: scale(1.1) !important;
-    }
-
-    .benefit-item:hover {
-      transform: translateY(-10px) scale(1.05) !important;
-      background: rgba(255,255,255,0.15) !important;
     }
 
     .mechanical-card {
@@ -775,74 +639,36 @@ const Hire = () => {
       --chip-color: #ed6c02;
     }
 
-   
-
     .mechanical-card::before,
-    .electrical-card::before,
-    .plumbing-card::before {
+    .electrical-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 6px;
+      height: 4px;
       background: linear-gradient(90deg, var(--card-color), var(--card-color-light));
-      border-radius: 28px 28px 0 0;
+      border-radius: 20px 20px 0 0;
     }
 
-    /* Enhanced Mobile Responsiveness */
-    @media (max-width: 480px) {
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
       .floating-contact {
-        bottom: 15px !important;
-        right: 15px !important;
+        bottom: 20px !important;
+        right: 20px !important;
       }
       
       .floating-btn {
-        padding: 10px 18px !important;
-        font-size: 0.85rem !important;
+        padding: 12px 20px !important;
+        font-size: 0.9rem !important;
       }
       
       .positions-grid {
         grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        gap: 30px !important;
         padding: 0 5px !important;
       }
       
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-      }
-      
-      .benefits-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-      }
-      
-      .requirement-chip {
-        font-size: 0.75rem !important;
-        padding: 8px 14px !important;
-      }
-      
-      .modal {
-        padding: 8px !important;
-      }
-      
-      .modal-content {
-        border-radius: 20px !important;
-        max-height: 98vh !important;
-      }
-      
-      .modal-header h3 {
-        font-size: 1.1rem !important;
-      }
-
-      .contact-info {
-        flex-direction: column !important;
-        gap: 15px !important;
-      }
-    }
-
-    @media (max-width: 768px) {
       .position-header {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -855,32 +681,81 @@ const Hire = () => {
         margin-bottom: 5px !important;
       }
       
-      .benefits-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+      .requirement-chip {
+        font-size: 0.85rem !important;
+        padding: 8px 15px !important;
+      }
+      
+      .modal {
+        padding: 15px !important;
+      }
+      
+      .modal-content {
+        padding: 30px 25px !important;
+        border-radius: 20px !important;
+        max-height: 95vh !important;
+      }
+      
+      .modal-header {
+        margin: -30px -25px 25px -25px !important;
+        padding: 20px !important;
+      }
+      
+      .modal-header h3 {
+        font-size: 1.2rem !important;
+      }
+
+      .contact-info {
+        flex-direction: column !important;
+        gap: 20px !important;
+      }
+
+      .content {
+        padding: 15px !important;
+      }
+
+      .header {
+        margin-bottom: 50px !important;
+      }
+
+      .brand-name {
+        font-size: 1.3rem !important;
+        letter-spacing: 2px !important;
+      }
+
+      .brand-line {
+        width: 80px !important;
+        height: 3px !important;
       }
     }
 
-    @media (max-width: 600px) {
-      .benefits-grid {
-        grid-template-columns: 1fr !important;
-      }
-    }
-
-    @media (min-width: 1200px) {
+    @media (max-width: 480px) {
       .positions-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 25px !important;
       }
-    }
-
-    @media (min-width: 1400px) {
-      .benefits-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
+      
+      .position-card {
+        padding: 25px !important;
+      }
+      
+      .requirement-chip {
+        font-size: 0.8rem !important;
+        padding: 7px 12px !important;
+      }
+      
+      .modal-content {
+        padding: 25px 20px !important;
+      }
+      
+      .modal-header {
+        margin: -25px -20px 20px -20px !important;
+        padding: 18px !important;
       }
     }
 
     /* Custom Scrollbar */
     .modal-content::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     .modal-content::-webkit-scrollbar-track {
@@ -907,75 +782,80 @@ const Hire = () => {
         {/* Enhanced Decorative Elements */}
         <div style={{
           position: 'absolute',
-          top: '15%',
-          right: '-120px',
-          width: '250px',
-          height: '250px',
+          top: '10%',
+          right: '-150px',
+          width: '300px',
+          height: '300px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(79,195,247,0.4) 0%, transparent 70%)',
-          animation: 'float 10s ease-in-out infinite'
+          background: 'radial-gradient(circle, rgba(79,195,247,0.15) 0%, transparent 70%)',
+          animation: 'float 12s ease-in-out infinite',
+          filter: 'blur(1px)'
         }}></div>
         
         <div style={{
           position: 'absolute',
-          bottom: '15%',
-          left: '-120px',
+          bottom: '20%',
+          left: '-100px',
           width: '200px',
           height: '200px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,107,0.4) 0%, transparent 70%)',
-          animation: 'float 8s ease-in-out infinite reverse'
+          background: 'radial-gradient(circle, rgba(255,107,107,0.12) 0%, transparent 70%)',
+          animation: 'float 10s ease-in-out infinite reverse',
+          filter: 'blur(1px)'
         }}></div>
 
         <div style={{
           position: 'absolute',
-          top: '50%',
-          left: '80%',
+          top: '30%',
+          left: '5%',
           width: '100px',
           height: '100px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(76,175,80,0.3) 0%, transparent 70%)',
-          animation: 'float 6s ease-in-out infinite'
+          background: 'radial-gradient(circle, rgba(76,175,80,0.1) 0%, transparent 70%)',
+          animation: 'float 8s ease-in-out infinite',
+          filter: 'blur(0.5px)'
+        }}></div>
+
+        {/* Geometric Shapes */}
+        <div style={{
+          position: 'absolute',
+          top: '60%',
+          right: '10%',
+          width: '60px',
+          height: '60px',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+          borderRadius: '12px',
+          animation: 'float 6s ease-in-out infinite',
+          transform: 'rotate(45deg)'
+        }}></div>
+
+        <div style={{
+          position: 'absolute',
+          top: '80%',
+          left: '15%',
+          width: '80px',
+          height: '80px',
+          background: 'linear-gradient(135deg, rgba(79,195,247,0.05), transparent)',
+          borderRadius: '50%',
+          animation: 'float 9s ease-in-out infinite reverse'
         }}></div>
 
         <div style={styles.content}>
-          {/* Enhanced Header Section */}
+          {/* Header Section */}
           <header style={styles.header}>
-            <div style={styles.logoContainer}>
-              <div style={styles.logo}>
-                <div style={styles.logoOverlay}></div>
-                <div style={styles.logoText}>M</div>
-              </div>
+            <div style={styles.brandContainer}>
+              <h1 style={styles.brandName}>MEPTEQ GLOBAL</h1>
+              <div style={styles.brandLine}></div>
             </div>
             
             <h1 style={styles.mainTitle}>WE ARE HIRING</h1>
             
             <p style={styles.subtitle}>
-              Join Mepteq Global, a leading MEP consultancy where innovation meets expertise. We're seeking talented draftsmen who are passionate about precision, creativity, and building the future of engineering design.
+              Join our leading MEP consultancy where innovation meets expertise. We're seeking talented draftsmen who are passionate about precision, creativity, and building the future of engineering design.
             </p>
           </header>
 
-          {/* Enhanced Company Stats */}
-          <div style={styles.statsGrid}>
-            {companyStats.map((stat, index) => (
-              <div 
-                key={index}
-                className="stat-card hover-lift"
-                style={{
-                  ...styles.statCard,
-                  animationDelay: `${index * 0.15}s`
-                }}
-              >
-                <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', marginBottom: '15px', color: '#4FC3F7' }}>
-                  {stat.icon}
-                </div>
-                <div style={styles.statNumber}>{stat.number}</div>
-                <div style={styles.statLabel}>{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Enhanced Positions Section */}
+          {/* Positions Section */}
           <h2 style={styles.sectionTitle}>Open Positions</h2>
 
           <div style={styles.positionsGrid}>
@@ -984,8 +864,7 @@ const Hire = () => {
                 key={index}
                 className={`position-card ${
                   position.title.toLowerCase().includes('mechanical') ? 'mechanical-card' : 
-                  position.title.toLowerCase().includes('electrical') ? 'electrical-card' : 
-                  'plumbing-card'
+                  'electrical-card'
                 }`}
                 style={{
                   ...styles.positionCard,
@@ -1020,7 +899,7 @@ const Hire = () => {
                 </div>
                 
                 <button
-                  className="apply-btn hover-glow"
+                  className="apply-btn"
                   style={{
                     ...styles.applyBtn,
                     background: `linear-gradient(135deg, ${position.color}, ${position.colorLight})`
@@ -1033,61 +912,27 @@ const Hire = () => {
             ))}
           </div>
 
-          {/* Enhanced Why Choose Us Section */}
-          <div style={styles.whyChooseUs}>
-            <h2 style={{...styles.sectionTitle, marginBottom: '50px'}}>Why Choose Mepteq Global?</h2>
-            
-            <div style={styles.benefitsGrid}>
-              {benefits.map((benefit, index) => (
-                <div 
-                  key={index}
-                  className="benefit-item hover-lift"
-                  style={{
-                    ...styles.benefitItem,
-                    animationDelay: `${index * 0.3}s`
-                  }}
-                >
-                  <span style={{...styles.benefitIcon, animationDelay: `${index * 0.3}s`}}>
-                    {benefit.icon}
-                  </span>
-                  <h3 style={styles.benefitTitle}>{benefit.title}</h3>
-                  <p style={styles.benefitDescription}>{benefit.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Enhanced Contact Section */}
+          {/* Contact Section */}
           <div style={styles.contactSection}>
             <h2 style={styles.contactTitle}>Ready to Join Our Team?</h2>
             
             <div style={styles.contactInfo}>
-              <div className="contact-item hover-scale" style={styles.contactItem}>
-                <span style={{ marginRight: '15px', color: '#4FC3F7', fontSize: '1.8rem' }}>📧</span>
+              <div className="contact-item" style={styles.contactItem}>
+                <span style={{ marginRight: '15px', color: '#4FC3F7', fontSize: '1.5rem' }}>📧</span>
                 <span>info@mepteq.com</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Enhanced Floating Contact Button */}
-        <div style={styles.floatingContact} className="floating-contact">
-          <button 
-            className="floating-btn hover-scale"
-            style={styles.floatingBtn}
-            onClick={() => window.open('mailto:info@mepteq.com')}
-          >
-            <span>📧</span>
-            Quick Contact
-          </button>
-        </div>
+        
 
-        {/* Enhanced Application Modal */}
+        {/* Application Modal */}
         {openApplication && (
           <div style={styles.modal} onClick={(e) => e.target === e.currentTarget && closeApplication()}>
             <div style={styles.modalContent}>
               <div style={styles.modalHeader} className="modal-header">
-                <h3 style={{ margin: 0, fontSize: 'clamp(1.3rem, 3vw, 1.6rem)', fontWeight: '700' }}>
+                <h3 style={{ margin: 0, fontSize: '1.4rem', fontWeight: '700' }}>
                   Apply for {selectedPosition}
                 </h3>
                 <button 
@@ -1170,7 +1015,6 @@ const Hire = () => {
                   />
                   {formErrors.experience && <div style={styles.fieldError}>{formErrors.experience}</div>}
                 </div>
-
                 
                 <div style={styles.formGroup}>
                   <label style={styles.formLabel}>Why do you want to join Mepteq Global? * (min 50 characters)</label>
@@ -1182,7 +1026,7 @@ const Hire = () => {
                     disabled={isSubmitting}
                     placeholder="Tell us about your passion for MEP design, career goals, and what attracts you to our company..."
                   />
-                  <div style={{fontSize: '0.8rem', color: '#666', marginTop: '5px'}}>
+                  <div style={{fontSize: '0.85rem', color: '#666', marginTop: '5px'}}>
                     {formData.motivation.length}/50 characters minimum
                   </div>
                   {formErrors.motivation && <div style={styles.fieldError}>{formErrors.motivation}</div>}
@@ -1190,7 +1034,7 @@ const Hire = () => {
                 
                 <button 
                   onClick={handleSubmit}
-                  className="submit-btn hover-glow"
+                  className="submit-btn"
                   style={styles.submitBtn}
                   disabled={isSubmitting || submitStatus === 'success'}
                 >
