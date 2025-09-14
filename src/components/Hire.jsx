@@ -922,7 +922,7 @@ const Hire = () => {
       <div style={styles.container}>
         <div style={styles.bgAnimation}></div>
         
-        {/* Enhanced Decorative Elements */}
+        {/* Enhanced Decoratives Elements */}
         <div style={{
           position: 'absolute',
           top: '10%',
