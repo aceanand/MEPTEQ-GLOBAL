@@ -16,9 +16,14 @@ const Hire = () => {
   const [submitStatus, setSubmitStatus] = useState('');
   const [formErrors, setFormErrors] = useState({});
 
-  // Initialize EmailJS
+  // Initialize EmailJS with better error handling
   useEffect(() => {
-    emailjs.init("38Wr0pXGcLDRtVP9o");
+    try {
+      emailjs.init("38Wr0pXGcLDRtVP9o");
+      console.log('EmailJS initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize EmailJS:', error);
+    }
   }, []);
 
   const positions = [
@@ -43,26 +48,44 @@ const Hire = () => {
   const validateForm = () => {
     const errors = {};
     
-    if (!formData.name.trim()) errors.name = 'Full name is required';
+    if (!formData.name.trim()) {
+      errors.name = 'Full name is required';
+    } else if (formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters long';
+    }
+
     if (!formData.email.trim()) {
       errors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       errors.email = 'Please enter a valid email address';
     }
+
     if (!formData.phone.trim()) {
       errors.phone = 'Phone number is required';
-    } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
-      errors.phone = 'Please enter a valid phone number';
+    } else {
+      const cleanPhone = formData.phone.replace(/[\s\-\(\)\+]/g, '');
+      if (cleanPhone.length < 10) {
+        errors.phone = 'Phone number must be at least 10 digits';
+      }
     }
-    if (!formData.experience) {
+
+    if (!formData.experience && formData.experience !== 0) {
       errors.experience = 'Experience is required';
-    } else if (formData.experience < 0) {
-      errors.experience = 'Experience cannot be negative';
+    } else {
+      const exp = Number(formData.experience);
+      if (isNaN(exp) || exp < 0) {
+        errors.experience = 'Experience must be a valid number 0 or greater';
+      }
     }
+
     if (!formData.motivation.trim()) {
       errors.motivation = 'Please tell us why you want to join';
-    } else if (formData.motivation.trim().length < 50) {
-      errors.motivation = 'Please provide at least 50 characters';
+    } else if (formData.motivation.trim().length < 10) {
+      errors.motivation = 'Please provide at least 10 characters';
+    }
+
+    if (!formData.position.trim()) {
+      errors.position = 'Position selection is required';
     }
     
     setFormErrors(errors);
@@ -70,8 +93,9 @@ const Hire = () => {
   };
 
   const handleApply = (position) => {
+    console.log('Apply button clicked for:', position);
     setSelectedPosition(position);
-    setFormData({ ...formData, position });
+    setFormData(prev => ({ ...prev, position }));
     setOpenApplication(true);
     setSubmitStatus('');
     setFormErrors({});
@@ -79,32 +103,52 @@ const Hire = () => {
   };
 
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
+    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear specific field error when user starts typing
     if (formErrors[field]) {
-      setFormErrors({ ...formErrors, [field]: '' });
+      setFormErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
   const handleSubmit = async () => {
+    console.log('Submit button clicked');
+    console.log('Current form data:', formData);
+
+    // Validate form before submission
     if (!validateForm()) {
+      console.log('Form validation failed:', formErrors);
+      setSubmitStatus('validation_error');
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitStatus('');
+    setSubmitStatus('submitting');
 
     try {
+      // Check if EmailJS is available
+      if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS library is not loaded');
+      }
+
+      // Your EmailJS configuration
       const serviceId = 'service_zr7oaba';
       const templateId = 'template_1epmvcf';
+      const publicKey = '38Wr0pXGcLDRtVP9o';
       
+      // Prepare template parameters
       const currentDate = new Date();
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        position: formData.position,
-        experience: formData.experience,
-        motivation: formData.motivation,
+        from_name: formData.name.trim(),
+        from_email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        position: formData.position.trim(),
+        experience: formData.experience.toString(),
+        motivation: formData.motivation.trim(),
         application_date: currentDate.toLocaleDateString('en-US', {
           weekday: 'long',
           year: 'numeric',
@@ -115,20 +159,66 @@ const Hire = () => {
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit'
-        })
+        }),
+        to_name: 'Hiring Team', // Added recipient name
+        to_email: 'info@mepteq.com' // Make sure this matches your EmailJS template
       };
 
-      const result = await emailjs.send(serviceId, templateId, templateParams);
+      console.log('Sending email with params:', templateParams);
+      console.log('Service ID:', serviceId);
+      console.log('Template ID:', templateId);
       
-      if (result.text === 'OK') {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+      
+      console.log('EmailJS result:', result);
+      
+      if (result.status === 200) {
+        console.log('Email sent successfully');
         setSubmitStatus('success');
+        // Auto-close modal after 3 seconds
         setTimeout(() => {
           closeApplication();
         }, 3000);
+      } else {
+        throw new Error(`EmailJS returned status: ${result.status}`);
       }
+      
     } catch (error) {
-      console.error('Email sending failed:', error);
+      console.error('Detailed error information:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = 'Failed to send application. ';
+      
+      if (error.message.includes('EmailJS')) {
+        errorMessage += 'Email service is not properly configured.';
+      } else if (error.status === 400) {
+        errorMessage += 'Invalid email parameters.';
+      } else if (error.status === 401) {
+        errorMessage += 'Email service authentication failed.';
+      } else if (error.status === 404) {
+        errorMessage += 'Email template not found.';
+      } else if (!navigator.onLine) {
+        errorMessage += 'Please check your internet connection.';
+      } else {
+        errorMessage += 'Please try again in a moment.';
+      }
+      
+      console.error('Error message:', errorMessage);
       setSubmitStatus('error');
+      
+      // Show error for longer time
+      setTimeout(() => {
+        if (submitStatus === 'error') {
+          setSubmitStatus('');
+        }
+      }, 5000);
+      
     } finally {
       setIsSubmitting(false);
     }
@@ -137,10 +227,25 @@ const Hire = () => {
   const closeApplication = () => {
     setOpenApplication(false);
     document.body.style.overflow = 'auto';
-    setFormData({ name: '', email: '', phone: '', experience: '', motivation: '', position: '' });
+    setFormData({ 
+      name: '', 
+      email: '', 
+      phone: '', 
+      experience: '', 
+      motivation: '', 
+      position: '' 
+    });
     setSubmitStatus('');
     setFormErrors({});
+    setSelectedPosition('');
   };
+
+  // Add cleanup effect
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   const styles = {
     container: {
@@ -220,28 +325,18 @@ const Hire = () => {
     subtitle: {
       fontSize: 'clamp(1.1rem, 4vw, 1.3rem)',
       color: '#f8f9fa',
-      maxWidth: '800px',
+      maxWidth: '900px',
       margin: '0 auto',
       lineHeight: 1.6,
       animation: 'slideInRight 1s ease-out 0.3s both',
       padding: '0 20px',
       fontWeight: '300'
     },
-    sectionTitle: {
-      fontSize: 'clamp(2rem, 6vw, 3rem)',
-      textAlign: 'center',
-      color: '#ffffff',
-      marginBottom: '50px',
-      fontWeight: '700',
-      textShadow: '2px 2px 6px rgba(0,0,0,0.3)',
-      animation: 'slideInUp 1.2s ease-out',
-      letterSpacing: '1px'
-    },
     positionsGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-      gap: '40px',
-      marginBottom: '80px',
+      gap: '30px',
+      marginBottom: '10px',
       padding: '0 10px'
     },
     positionCard: {
@@ -266,7 +361,8 @@ const Hire = () => {
     },
     positionIcon: {
       fontSize: '3rem',
-      marginRight: '15px'
+      marginRight: '15px',
+      animation: 'iconBounce 2s ease-in-out infinite'
     },
     positionTitle: {
       fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
@@ -302,25 +398,30 @@ const Hire = () => {
       borderRadius: '25px',
       fontSize: '0.95rem',
       fontWeight: '600',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
       cursor: 'pointer',
       whiteSpace: 'nowrap',
-      color: '#4a5568'
+      color: '#4a5568',
+      position: 'relative',
+      overflow: 'hidden'
     },
     applyBtn: {
       width: '100%',
-      padding: '16px',
+      padding: '18px',
       color: 'white',
       border: 'none',
-      borderRadius: '12px',
+      borderRadius: '16px',
       fontSize: '1.1rem',
       fontWeight: '700',
       cursor: 'pointer',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
       position: 'relative',
       overflow: 'hidden',
       textTransform: 'uppercase',
-      letterSpacing: '1px'
+      letterSpacing: '1px',
+      boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+      transform: 'translateY(0)',
+      zIndex: 1
     },
     contactSection: {
       textAlign: 'center',
@@ -337,7 +438,7 @@ const Hire = () => {
       fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
       color: '#ffffff',
       marginBottom: '40px',
-      fontWeight: '400'
+      fontWeight: '300'
     },
     contactInfo: {
       display: 'flex',
@@ -351,34 +452,12 @@ const Hire = () => {
       alignItems: 'center',
       color: '#f8f9fa',
       fontSize: '1.2rem',
-      transition: 'transform 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
       cursor: 'pointer',
       padding: '15px 25px',
       borderRadius: '12px',
       background: 'rgba(255,255,255,0.1)',
       backdropFilter: 'blur(10px)'
-    },
-    floatingContact: {
-      position: 'fixed',
-      bottom: '30px',
-      right: '30px',
-      zIndex: 999
-    },
-    floatingBtn: {
-      background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-      color: 'white',
-      border: 'none',
-      padding: '15px 25px',
-      borderRadius: '50px',
-      fontSize: '1rem',
-      fontWeight: '600',
-      cursor: 'pointer',
-      boxShadow: '0 8px 25px rgba(0,0,0,0.3)',
-      animation: 'float 4s ease-in-out infinite',
-      transition: 'all 0.3s ease',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px'
     },
     modal: {
       display: openApplication ? 'flex' : 'none',
@@ -456,7 +535,7 @@ const Hire = () => {
     },
     submitBtn: {
       background: isSubmitting 
-        ? '#4caf50' 
+        ? '#9e9e9e' 
         : submitStatus === 'success' 
         ? '#4caf50' 
         : submitStatus === 'error' 
@@ -468,7 +547,7 @@ const Hire = () => {
       borderRadius: '12px',
       fontSize: '1.1rem',
       fontWeight: '700',
-      cursor: 'pointer',
+      cursor: isSubmitting || submitStatus === 'success' ? 'not-allowed' : 'pointer',
       transition: 'all 0.3s ease',
       width: '100%',
       textTransform: 'uppercase',
@@ -491,6 +570,11 @@ const Hire = () => {
       background: '#ffebee',
       color: '#c62828',
       border: '2px solid #f44336'
+    },
+    validationErrorMessage: {
+      background: '#fff3e0',
+      color: '#ef6c00',
+      border: '2px solid #ff9800'
     },
     fieldError: {
       color: '#e53e3e',
@@ -538,19 +622,51 @@ const Hire = () => {
     }
 
     @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes iconBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+
+    @keyframes buttonGlow {
+      0%, 100% { box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 12px 35px rgba(25, 118, 210, 0.4), 0 0 20px rgba(25, 118, 210, 0.3); }
+    }
+
+    @keyframes chipHover {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-3px) scale(1.05); }
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
+      50% { transform: translateY(-5px) rotateX(2deg) rotateY(1deg); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .position-card {
+      animation: slideInUp 1s ease-out, cardFloat 4s ease-in-out infinite 2s !important;
     }
 
     .position-card:hover {
-      transform: translateY(-15px) scale(1.02) !important;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(79,195,247,0.2) !important;
+      transform: translateY(-20px) scale(1.03) !important;
+      box-shadow: 0 35px 70px rgba(0,0,0,0.2), 0 0 0 2px rgba(79,195,247,0.3) !important;
       background: rgba(255,255,255,0.98) !important;
+      animation: none !important;
     }
 
     .position-card::before {
       content: '';
-      position: 'absolute';
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
@@ -567,7 +683,7 @@ const Hire = () => {
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(79,195,247,0.03), transparent);
+      background: linear-gradient(45deg, transparent, rgba(79,195,247,0.05), transparent);
       transform: rotate(45deg);
       transition: all 0.6s ease;
       opacity: 0;
@@ -575,34 +691,74 @@ const Hire = () => {
 
     .position-card:hover::after {
       opacity: 1;
-      animation: shimmer 1.5s ease-in-out;
+      animation: shimmer 2s ease-in-out;
+    }
+
+    .requirement-chip {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .requirement-chip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .requirement-chip:hover::before {
+      left: 100%;
     }
 
     .requirement-chip:hover {
       background: var(--chip-color) !important;
       color: white !important;
-      transform: translateY(-2px) scale(1.02) !important;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important;
+      animation: chipHover 0.3s ease forwards !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
     }
 
     .contact-item:hover {
-      transform: scale(1.05) translateY(-2px) !important;
-      background: rgba(255,255,255,0.2) !important;
+      transform: scale(1.08) translateY(-3px) !important;
+      background: rgba(255,255,255,0.25) !important;
+      box-shadow: 0 10px 25px rgba(255,255,255,0.1) !important;
     }
 
-    .floating-btn:hover {
-      transform: scale(1.05) !important;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.4) !important;
+    .apply-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .apply-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .apply-btn:hover::before {
+      left: 100%;
     }
 
     .apply-btn:hover {
-      transform: scale(1.02) translateY(-2px) !important;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25) !important;
+      transform: translateY(-4px) scale(1.02) !important;
+      animation: buttonGlow 1.5s ease-in-out infinite !important;
+    }
+
+    .apply-btn:active {
+      transform: translateY(-2px) scale(0.98) !important;
     }
 
     .submit-btn:hover:not(:disabled) {
-      transform: translateY(-2px) scale(1.01) !important;
-      box-shadow: 0 10px 25px rgba(25, 118, 210, 0.4) !important;
+      transform: translateY(-2px) scale(1.02) !important;
+      box-shadow: 0 15px 30px rgba(25, 118, 210, 0.5) !important;
     }
 
     .submit-btn:disabled {
@@ -613,18 +769,20 @@ const Hire = () => {
     .form-input:focus {
       outline: none !important;
       border-color: #1976d2 !important;
-      box-shadow: 0 0 12px rgba(25, 118, 210, 0.3) !important;
+      box-shadow: 0 0 15px rgba(25, 118, 210, 0.4) !important;
       background-color: white !important;
+      transform: scale(1.01) !important;
     }
 
     .form-input.error {
       border-color: #e53e3e !important;
-      box-shadow: 0 0 8px rgba(229, 62, 62, 0.3) !important;
+      box-shadow: 0 0 12px rgba(229, 62, 62, 0.4) !important;
+      animation: shake 0.5s ease-in-out !important;
     }
 
     .close-btn:hover {
       background: rgba(255,255,255,0.3) !important;
-      transform: scale(1.1) !important;
+      transform: scale(1.15) rotate(90deg) !important;
     }
 
     .mechanical-card {
@@ -639,30 +797,8 @@ const Hire = () => {
       --chip-color: #ed6c02;
     }
 
-    .mechanical-card::before,
-    .electrical-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--card-color), var(--card-color-light));
-      border-radius: 20px 20px 0 0;
-    }
-
-    /* Mobile Responsiveness */
+    /* Enhanced Mobile Responsiveness */
     @media (max-width: 768px) {
-      .floating-contact {
-        bottom: 20px !important;
-        right: 20px !important;
-      }
-      
-      .floating-btn {
-        padding: 12px 20px !important;
-        font-size: 0.9rem !important;
-      }
-      
       .positions-grid {
         grid-template-columns: 1fr !important;
         gap: 30px !important;
@@ -700,10 +836,6 @@ const Hire = () => {
         margin: -30px -25px 25px -25px !important;
         padding: 20px !important;
       }
-      
-      .modal-header h3 {
-        font-size: 1.2rem !important;
-      }
 
       .contact-info {
         flex-direction: column !important;
@@ -717,23 +849,9 @@ const Hire = () => {
       .header {
         margin-bottom: 50px !important;
       }
-
-      .brand-name {
-        font-size: 1.3rem !important;
-        letter-spacing: 2px !important;
-      }
-
-      .brand-line {
-        width: 80px !important;
-        height: 3px !important;
-      }
     }
 
     @media (max-width: 480px) {
-      .positions-grid {
-        gap: 25px !important;
-      }
-      
       .position-card {
         padding: 25px !important;
       }
@@ -746,16 +864,11 @@ const Hire = () => {
       .modal-content {
         padding: 25px 20px !important;
       }
-      
-      .modal-header {
-        margin: -25px -20px 20px -20px !important;
-        padding: 18px !important;
-      }
     }
 
     /* Custom Scrollbar */
     .modal-content::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
 
     .modal-content::-webkit-scrollbar-track {
@@ -764,14 +877,44 @@ const Hire = () => {
     }
 
     .modal-content::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
+      background: linear-gradient(135deg, #1976d2, #42a5f5);
       border-radius: 10px;
     }
 
     .modal-content::-webkit-scrollbar-thumb:hover {
-      background: #a8a8a8;
+      background: linear-gradient(135deg, #1565c0, #1976d2);
     }
   `;
+
+  // Get status message based on current state
+  const getStatusMessage = () => {
+    switch (submitStatus) {
+      case 'success':
+        return {
+          message: '🎉 Application submitted successfully! We will contact you within 2-3 business days.',
+          style: styles.successMessage
+        };
+      case 'error':
+        return {
+          message: '⚠️ Failed to send application. Please check your internet connection and try again.',
+          style: styles.errorMessage
+        };
+      case 'validation_error':
+        return {
+          message: '📝 Please fill in all required fields correctly before submitting.',
+          style: styles.validationErrorMessage
+        };
+      case 'submitting':
+        return {
+          message: '📤 Sending your application, please wait...',
+          style: styles.validationErrorMessage
+        };
+      default:
+        return null;
+    }
+  };
+
+  const statusMessage = getStatusMessage();
 
   return (
     <>
@@ -843,20 +986,12 @@ const Hire = () => {
         <div style={styles.content}>
           {/* Header Section */}
           <header style={styles.header}>
-            <div style={styles.brandContainer}>
-              <h1 style={styles.brandName}>MEPTEQ GLOBAL</h1>
-              <div style={styles.brandLine}></div>
-            </div>
-            
-            <h1 style={styles.mainTitle}>WE ARE HIRING</h1>
+            <h4 style={styles.mainTitle}>WE ARE HIRING</h4>
             
             <p style={styles.subtitle}>
               Join our leading MEP consultancy where innovation meets expertise. We're seeking talented draftsmen who are passionate about precision, creativity, and building the future of engineering design.
             </p>
           </header>
-
-          {/* Positions Section */}
-          <h2 style={styles.sectionTitle}>Open Positions</h2>
 
           <div style={styles.positionsGrid}>
             {positions.map((position, index) => (
@@ -904,7 +1039,11 @@ const Hire = () => {
                     ...styles.applyBtn,
                     background: `linear-gradient(135deg, ${position.color}, ${position.colorLight})`
                   }}
-                  onClick={() => handleApply(position.title)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleApply(position.title);
+                  }}
                 >
                   Apply Now →
                 </button>
@@ -925,8 +1064,6 @@ const Hire = () => {
           </div>
         </div>
 
-        
-
         {/* Application Modal */}
         {openApplication && (
           <div style={styles.modal} onClick={(e) => e.target === e.currentTarget && closeApplication()}>
@@ -944,16 +1081,9 @@ const Hire = () => {
                 </button>
               </div>
               
-              {submitStatus && (
-                <div 
-                  style={{
-                    ...styles.statusMessage,
-                    ...(submitStatus === 'success' ? styles.successMessage : styles.errorMessage)
-                  }}
-                >
-                  {submitStatus === 'success' 
-                    ? '🎉 Application submitted successfully! We will contact you within 2-3 business days.' 
-                    : '⚠️ Failed to send application. Please check your internet connection and try again.'}
+              {statusMessage && (
+                <div style={{...styles.statusMessage, ...statusMessage.style}}>
+                  {statusMessage.message}
                 </div>
               )}
               
@@ -966,7 +1096,7 @@ const Hire = () => {
                     style={styles.formInput}
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitStatus === 'success'}
                     placeholder="Enter your full name"
                   />
                   {formErrors.name && <div style={styles.fieldError}>{formErrors.name}</div>}
@@ -980,7 +1110,7 @@ const Hire = () => {
                     style={styles.formInput}
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitStatus === 'success'}
                     placeholder="your.email@example.com"
                   />
                   {formErrors.email && <div style={styles.fieldError}>{formErrors.email}</div>}
@@ -994,7 +1124,7 @@ const Hire = () => {
                     style={styles.formInput}
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitStatus === 'success'}
                     placeholder="+1 (555) 123-4567"
                   />
                   {formErrors.phone && <div style={styles.fieldError}>{formErrors.phone}</div>}
@@ -1010,24 +1140,24 @@ const Hire = () => {
                     max="50"
                     value={formData.experience}
                     onChange={(e) => handleInputChange('experience', e.target.value)}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitStatus === 'success'}
                     placeholder="0"
                   />
                   {formErrors.experience && <div style={styles.fieldError}>{formErrors.experience}</div>}
                 </div>
                 
                 <div style={styles.formGroup}>
-                  <label style={styles.formLabel}>Why do you want to join Mepteq Global? * (min 50 characters)</label>
+                  <label style={styles.formLabel}>Why do you want to join Mepteq Global? * (min 10 characters)</label>
                   <textarea
                     className={`form-input ${formErrors.motivation ? 'error' : ''}`}
                     style={{...styles.formInput, minHeight: '120px', resize: 'vertical'}}
                     value={formData.motivation}
                     onChange={(e) => handleInputChange('motivation', e.target.value)}
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || submitStatus === 'success'}
                     placeholder="Tell us about your passion for MEP design, career goals, and what attracts you to our company..."
                   />
                   <div style={{fontSize: '0.85rem', color: '#666', marginTop: '5px'}}>
-                    {formData.motivation.length}/50 characters minimum
+                    {formData.motivation.length}/10 characters minimum
                   </div>
                   {formErrors.motivation && <div style={styles.fieldError}>{formErrors.motivation}</div>}
                 </div>
